@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #09090b;
+  --bg-elevated: #18181b;
+  --border: #27272a;
+  --text: #fafafa;
+  --text-mute: #a1a1aa;
+  --accent: #c8ff00;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--accent);
+  color: #09090b;
+}
+
+/* Subtle grid background utility */
+.bg-grid {
+  background-image: linear-gradient(to right, rgb(39 39 42 / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 39 42 / 0.3) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+}
+
+/* Glow effect */
+.glow-accent {
+  box-shadow: 0 0 80px -20px rgb(200 255 0 / 0.4);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
