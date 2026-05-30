@@ -113,18 +113,27 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-zinc-500">
+        <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-zinc-500">
           <div>
             © {new Date().getFullYear()} JuPaFi Consultores · Todos los
             derechos reservados.
           </div>
-          <div className="flex items-center gap-4">
-            <span className="font-mono">jupaficonsultores.com</span>
-            <span className="hidden sm:inline">·</span>
-            <span className="hidden sm:inline">
-              Hecho con disciplina en Guadalajara
-            </span>
-          </div>
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href="/privacidad" className="hover:text-accent transition-colors">
+              Privacidad
+            </a>
+            <a href="/terminos" className="hover:text-accent transition-colors">
+              Términos
+            </a>
+            <a href="/datos" className="hover:text-accent transition-colors">
+              Datos
+            </a>
+            <a href="/marca" className="hover:text-accent transition-colors">
+              Marca
+            </a>
+            <span className="hidden sm:inline text-zinc-700">·</span>
+            <span className="hidden sm:inline font-mono">jupaficonsultores.com</span>
+          </nav>
         </div>
       </div>
     </footer>
