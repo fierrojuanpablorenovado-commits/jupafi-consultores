@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const ADMIN_SECRET = 'gtf-admin-secret';
-const GTF = 'https://gestiona-tu-flotilla.vercel.app';
-const CIERRA = 'https://avisa-fierrojuanpablorenovado-7774s-projects.vercel.app';
+// Todas las llamadas pasan por el proxy local /api/control para evitar CORS
+const PROXY = '/api/control';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -43,8 +43,8 @@ interface JpProject {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const LIVE_PROJECTS = [
-  { key: 'gtf',    label: 'GTF',        url: `${GTF}/api/admin/super-stats`,    color: 'blue'   },
-  { key: 'cierra', label: 'Cierra CRM', url: `${CIERRA}/api/admin/super-stats`, color: 'violet' },
+  { key: 'gtf',    label: 'GTF',        url: `${PROXY}?action=stats&project=gtf`,    color: 'blue'   },
+  { key: 'cierra', label: 'Cierra CRM', url: `${PROXY}?action=stats&project=cierra`, color: 'violet' },
 ];
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; dot: string }> = {
@@ -72,12 +72,14 @@ const ESTADO_COLOR: Record<string, string> = {
 
 const fmt = (n: number) => `$${n.toLocaleString('es-MX')}`;
 
+// Cookie se envía automáticamente (same-origin + credentials: 'include')
 const adminFetch = (url: string, opts?: RequestInit) =>
-  fetch(url, { ...opts, headers: { 'x-admin-secret': ADMIN_SECRET, ...(opts?.headers ?? {}) } });
+  fetch(url, { ...opts, credentials: 'include' });
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ControlPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab]   = useState<'portfolio' | 'gtf' | 'cierra'>('portfolio');
 
   // Portfolio
@@ -111,7 +113,7 @@ export default function ControlPage() {
   const loadPortfolio = useCallback(async () => {
     setLoadingPortfolio(true);
     try {
-      const res = await adminFetch(`${GTF}/api/admin/projects`);
+      const res = await adminFetch(`${PROXY}?action=projects`);
       if (res.ok) setJpProjects(await res.json() as JpProject[]);
     } finally { setLoadingPortfolio(false); }
   }, []);
@@ -121,7 +123,7 @@ export default function ControlPage() {
     const results: Record<string, ProjectStats | null> = {};
     await Promise.all(LIVE_PROJECTS.map(async p => {
       try {
-        const res = await adminFetch(p.url);
+        const res = await adminFetch(`${PROXY}?action=stats&project=${p.key}`);
         results[p.key] = res.ok ? await res.json() as ProjectStats : null;
       } catch { results[p.key] = null; }
     }));
@@ -140,10 +142,10 @@ export default function ControlPage() {
     if (!editingProject) return;
     setSavingEdit(true);
     try {
-      await adminFetch(`${GTF}/api/admin/projects`, {
+      await adminFetch(PROXY, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...editingProject, mrr: Number(editForm.mrr), clientes: Number(editForm.clientes), notas: editForm.notas, estado: editForm.estado }),
+        body: JSON.stringify({ action: 'update-project', ...editingProject, mrr: Number(editForm.mrr), clientes: Number(editForm.clientes), notas: editForm.notas, estado: editForm.estado }),
       });
       setEditingProject(null);
       await loadPortfolio();
@@ -153,7 +155,7 @@ export default function ControlPage() {
   const loadResources = async (tenantId: string) => {
     setLoadingRes(tenantId);
     try {
-      const res = await adminFetch(`${GTF}/api/admin/tenant-resources?tenantId=${tenantId}`);
+      const res = await adminFetch(`${PROXY}?action=resources&tenantId=${tenantId}`);
       if (res.ok) { const data = await res.json() as ResourceDetail; setResources(prev => ({ ...prev, [tenantId]: data })); }
     } finally { setLoadingRes(null); }
   };
@@ -161,10 +163,10 @@ export default function ControlPage() {
   const sendReminder = async (tenant: TenantStat) => {
     setSending(tenant.id);
     try {
-      const res = await adminFetch(`${GTF}/api/admin/send-reminder`, {
+      const res = await adminFetch(PROXY, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tenantId: tenant.id }),
+        body: JSON.stringify({ action: 'send-reminder', tenantId: tenant.id }),
       });
       if (res.ok) setSent(prev => ({ ...prev, [tenant.id]: true }));
     } finally { setSending(null); }
@@ -173,10 +175,10 @@ export default function ControlPage() {
   const createTenant = async () => {
     setCreating(true); setCreateMsg('');
     try {
-      const res = await adminFetch(`${GTF}/api/admin/create-tenant`, {
+      const res = await adminFetch(PROXY, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...createForm, diasTrial: Number(createForm.diasTrial) }),
+        body: JSON.stringify({ action: 'create-tenant', ...createForm, diasTrial: Number(createForm.diasTrial) }),
       });
       const data = await res.json() as { ok?: boolean; error?: string };
       if (data.ok) {
@@ -192,10 +194,10 @@ export default function ControlPage() {
     if (!deleteTarget) return;
     setDeleting(true);
     try {
-      const res = await adminFetch(`${GTF}/api/admin/delete-tenant`, {
-        method: 'DELETE',
+      const res = await adminFetch(PROXY, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tenantId: deleteTarget.id, confirm: deleteConfirm }),
+        body: JSON.stringify({ action: 'delete-tenant', tenantId: deleteTarget.id, confirm: deleteConfirm }),
       });
       const data = await res.json() as { ok?: boolean; error?: string };
       if (data.ok) { setDeleteTarget(null); setDeleteConfirm(''); await loadStats(); }
@@ -256,6 +258,16 @@ export default function ControlPage() {
             <button onClick={() => { void loadPortfolio(); void loadStats(); }}
               className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-3 py-2 rounded-lg">
               🔄
+            </button>
+            <button
+              onClick={async () => {
+                await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+                router.push('/control/login');
+              }}
+              className="bg-slate-800 hover:bg-red-900/50 text-slate-500 hover:text-red-400 text-xs px-3 py-2 rounded-lg transition-colors"
+              title="Cerrar sesión"
+            >
+              Salir
             </button>
           </div>
         </div>

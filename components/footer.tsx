@@ -11,10 +11,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-5 gap-12 mb-12">
           <div className="md:col-span-2">
             <a
-              href="#"
+              href="/"
               className="flex items-center gap-2 font-bold text-zinc-50 mb-4"
             >
               <span className="w-7 h-7 rounded-md bg-accent flex items-center justify-center text-zinc-950 font-black text-sm">
@@ -29,14 +29,14 @@ export function Footer() {
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a
-                href="mailto:hola@jupaficonsultores.com"
+                href="mailto:info@jupaficonsultores.com"
                 className="text-zinc-500 hover:text-accent transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-5 h-5" />
               </a>
               <a
-                href="https://wa.me/523312345678"
+                href="https://wa.me/5213312933906?text=Hola%20JuPaFi%2C%20vi%20su%20sitio%20y%20quiero%20agendar%20una%20consulta"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-500 hover:text-accent transition-colors"
@@ -99,15 +99,43 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-accent shrink-0" />
                 <a
-                  href="mailto:hola@jupaficonsultores.com"
+                  href="mailto:info@jupaficonsultores.com"
                   className="hover:text-accent transition-colors"
                 >
-                  hola@jupaficonsultores.com
+                  info@jupaficonsultores.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-accent shrink-0" />
                 Guadalajara, México
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-4">
+              Legal
+            </h4>
+            <ul className="space-y-2 text-sm text-zinc-400">
+              <li>
+                <a href="/privacidad" className="hover:text-accent transition-colors">
+                  Aviso de Privacidad
+                </a>
+              </li>
+              <li>
+                <a href="/terminos" className="hover:text-accent transition-colors">
+                  Términos y Condiciones
+                </a>
+              </li>
+              <li>
+                <a href="/datos" className="hover:text-accent transition-colors">
+                  Datos y Cumplimiento
+                </a>
+              </li>
+              <li>
+                <a href="/marca" className="hover:text-accent transition-colors">
+                  Marca y Propiedad
+                </a>
               </li>
             </ul>
           </div>
@@ -133,6 +161,14 @@ export function Footer() {
             </a>
             <span className="hidden sm:inline text-zinc-700">·</span>
             <span className="hidden sm:inline font-mono">jupaficonsultores.com</span>
+            <a
+              href="/control"
+              className="text-zinc-900 hover:text-zinc-700 transition-colors font-mono text-base ml-1"
+              title="Panel"
+              aria-label="Panel privado"
+            >
+              ◉
+            </a>
           </nav>
         </div>
       </div>
