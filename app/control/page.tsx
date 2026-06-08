@@ -154,7 +154,7 @@ export default function ControlPage() {
     setLoadingRes(tenantId);
     try {
       const res = await adminFetch(`${GTF}/api/admin/tenant-resources?tenantId=${tenantId}`);
-      if (res.ok) setResources(prev => ({ ...prev, [tenantId]: await res.json() as ResourceDetail }));
+      if (res.ok) { const data = await res.json() as ResourceDetail; setResources(prev => ({ ...prev, [tenantId]: data })); }
     } finally { setLoadingRes(null); }
   };
 
