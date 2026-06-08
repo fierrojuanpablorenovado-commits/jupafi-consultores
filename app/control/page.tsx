@@ -76,7 +76,9 @@ const fmt = (n: number) => `$${n.toLocaleString('es-MX')}`;
 const adminFetch = (url: string, opts?: RequestInit) =>
   fetch(url, { ...opts, credentials: 'include' });
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── Component ───────────────────────────────────────────────────────────────
+// El middleware en middleware.ts protege /control y redirige a /control/login
+// si no hay cookie de sesión válida — este componente asume que ya está autenticado.
 
 export default function ControlPage() {
   const router = useRouter();
