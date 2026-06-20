@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const runtime = "nodejs";
 
 // Simple in-memory rate limit (per warm lambda instance) — basic abuse guard
@@ -22,6 +20,7 @@ function rateLimited(ip: string): boolean {
 
 export async function POST(req: Request) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     if (rateLimited(ip)) {
