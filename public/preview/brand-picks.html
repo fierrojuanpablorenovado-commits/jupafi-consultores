@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identidad de Marca — JuPaFi Consultores</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{background:#09090b;color:#fafafa;font-family:Inter,system-ui,sans-serif}
+nav{border-bottom:1px solid #18181b;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(9,9,11,.92);backdrop-filter:blur(12px);z-index:100}
+.logo{display:flex;align-items:center;gap:12px}
+.J{width:38px;height:38px;border-radius:9px;background:#c8ff00;display:flex;align-items:center;justify-content:center;color:#09090b;font-weight:900;font-size:21px;flex-shrink:0}
+.brand{font-size:16px;font-weight:700}.brand span{color:#52525b;font-weight:400}
+.badge{display:flex;align-items:center;gap:7px;border:1px solid #27272a;border-radius:999px;padding:5px 14px;font-size:11px;color:#a1a1aa;font-family:monospace;letter-spacing:1px}
+.dot{width:7px;height:7px;border-radius:50%;background:#c8ff00}
+.hero{max-width:800px;margin:0 auto;padding:60px 40px 40px;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #27272a;border-radius:999px;padding:5px 15px;font-size:11px;color:#a1a1aa;font-family:monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+h1{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:12px}
+h1 em{color:#c8ff00;font-style:normal}
+p.sub{font-size:17px;color:#71717a;line-height:1.6}
+section{max-width:1200px;margin:0 auto;padding:0 32px 64px}
+h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.sec-sub{font-size:14px;color:#71717a;margin-bottom:24px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.grid4-wide{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:#0f0f11;border:2px solid #27272a;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .22s;position:relative}
+.card:hover{border-color:#c8ff00;transform:translateY(-3px);box-shadow:0 12px 40px rgba(200,255,0,.08)}
+.card.selected{border-color:#c8ff00;box-shadow:0 0 0 3px rgba(200,255,0,.2)}
+.card img{width:100%;display:block;background:#18181b;object-fit:contain}
+.card-logo img{aspect-ratio:1/1;object-fit:contain;padding:16px;background:#18181b}
+.card-cover img{aspect-ratio:820/312;object-fit:cover}
+.card-meta{padding:14px 16px 16px}
+.card-num{font-size:10px;font-family:monospace;color:#c8ff00;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.card-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.card-desc{font-size:12px;color:#71717a;line-height:1.5}
+.sel-badge{position:absolute;top:12px;right:12px;background:#c8ff00;color:#09090b;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;display:none}
+.card.selected .sel-badge{display:block}
+.divider{border:none;border-top:1px solid #18181b;margin:0 32px 48px}
+.slogans{max-width:900px;margin:0 auto 64px;padding:0 32px}
+.slogans h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.slogans .sec-sub{font-size:14px;color:#71717a;margin-bottom:24px}
+.slogan-list{display:grid;gap:12px}
+.slogan-card{background:#0f0f11;border:2px solid #27272a;border-radius:14px;padding:20px 24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:16px}
+.slogan-card:hover{border-color:#c8ff00}
+.slogan-card.selected{border-color:#c8ff00;background:rgba(200,255,0,.04)}
+.slogan-num{font-family:monospace;font-size:13px;color:#c8ff00;flex-shrink:0;width:28px}
+.slogan-text{font-size:20px;font-weight:700;letter-spacing:-.3px;flex:1}
+.slogan-angle{font-size:12px;color:#71717a;margin-top:3px}
+.slogan-sel{width:20px;height:20px;border-radius:50%;border:2px solid #27272a;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.slogan-card.selected .slogan-sel{background:#c8ff00;border-color:#c8ff00}
+.slogan-card.selected .slogan-sel::after{content:"✓";font-size:11px;color:#09090b;font-weight:900}
+footer{border-top:1px solid #18181b;padding:28px 40px;text-align:center;color:#52525b;font-size:12px}
+footer a{color:#c8ff00;text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo"><div class="J">J</div><div class="brand">JuPaFi <span>Consultores</span></div></div>
+  <div class="badge"><div class="dot"></div>IDENTIDAD DE MARCA</div>
+</nav>
+<div class="hero">
+  <div class="chip"><span class="dot"></span>Brand Identity</div>
+  <h1>Elige tu <em>identidad</em></h1>
+  <p class="sub">4 opciones de logo, 4 portadas, 6 eslóganes. Click en los que te gusten — dime los numeros y los refinamos.</p>
+</div>
+
+<section>
+  <h2>Logos — 4 opciones</h2>
+  <p class="sec-sub">Click para seleccionar. Dime "me gusta el logo 2" o "ninguno, quiero algo diferente".</p>
+  <div class="grid4">
+    <div class="card card-logo" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-logo-1.png" alt="Logo 1">
+      <div class="card-meta">
+        <div class="card-num">LOGO 01</div>
+        <div class="card-name">Futurista Arquitectónico</div>
+        <div class="card-desc">Elementos geométricos, estilo tech premium</div>
+      </div>
+    </div>
+    <div class="card card-logo" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-logo-2.png" alt="Logo 2">
+      <div class="card-meta">
+        <div class="card-num">LOGO 02</div>
+        <div class="card-name">Monograma Vibrante</div>
+        <div class="card-desc">Monograma bold con wordmark moderno</div>
+      </div>
+    </div>
+    <div class="card card-logo" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-logo-3.png" alt="Logo 3">
+      <div class="card-meta">
+        <div class="card-num">LOGO 03</div>
+        <div class="card-name">Monograma Plano Profesional</div>
+        <div class="card-desc">Flat design, limpio, alta legibilidad</div>
+      </div>
+    </div>
+    <div class="card card-logo" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-logo-4.png" alt="Logo 4">
+      <div class="card-meta">
+        <div class="card-num">LOGO 04</div>
+        <div class="card-name">Geométrico Sleek</div>
+        <div class="card-desc">Minimalista, confianza, tech moderno</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>Fotos de portada — 4 opciones</h2>
+  <p class="sec-sub">Para LinkedIn y Facebook. Banner horizontal.</p>
+  <div class="grid4-wide">
+    <div class="card card-cover" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-cover-1.png" alt="Portada 1">
+      <div class="card-meta">
+        <div class="card-num">PORTADA 01</div>
+        <div class="card-name">Productos digitales que escalan.</div>
+        <div class="card-desc">Dark premium con texto principal</div>
+      </div>
+    </div>
+    <div class="card card-cover" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-cover-2.png" alt="Portada 2">
+      <div class="card-meta">
+        <div class="card-num">PORTADA 02</div>
+        <div class="card-name">Productos digitales que escalan.</div>
+        <div class="card-desc">Variación con layout diferente</div>
+      </div>
+    </div>
+    <div class="card card-cover" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-cover-3.png" alt="Portada 3">
+      <div class="card-meta">
+        <div class="card-num">PORTADA 03</div>
+        <div class="card-name">Productos Digitales</div>
+        <div class="card-desc">Estilo más gráfico con elementos visuales</div>
+      </div>
+    </div>
+    <div class="card card-cover" onclick="toggle(this)">
+      <span class="sel-badge">SELECCIONADO</span>
+      <img src="brand-cover-4.png" alt="Portada 4">
+      <div class="card-meta">
+        <div class="card-num">PORTADA 04</div>
+        <div class="card-name">Productos digitales</div>
+        <div class="card-desc">Variación con composición diferente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<div class="slogans">
+  <h2>Eslóganes — elige el que más te represente</h2>
+  <p class="sec-sub">O dime que quieres uno diferente y lo creo.</p>
+  <div class="slogan-list">
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">01</div>
+      <div>
+        <div class="slogan-text">"Productos digitales que escalan."</div>
+        <div class="slogan-angle">Ángulo: Resultado — el actual, funciona bien</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">02</div>
+      <div>
+        <div class="slogan-text">"De la idea al deploy. En semanas."</div>
+        <div class="slogan-angle">Ángulo: Velocidad — diferencial vs agencias lentas</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">03</div>
+      <div>
+        <div class="slogan-text">"Tu producto. Tu código. Tu negocio."</div>
+        <div class="slogan-angle">Ángulo: Propiedad — cero dependencia de agencia</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">04</div>
+      <div>
+        <div class="slogan-text">"Tecnología de fundador, para fundadores."</div>
+        <div class="slogan-angle">Ángulo: Identidad — JP como fundador que entiende</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">05</div>
+      <div>
+        <div class="slogan-text">"Del concepto al SaaS. Sin agencias."</div>
+        <div class="slogan-angle">Ángulo: Diferenciación directa — más agresivo</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+    <div class="slogan-card" onclick="toggleSlogan(this)">
+      <div class="slogan-num">06</div>
+      <div>
+        <div class="slogan-text">"Construimos la tecnología que mueve tu negocio."</div>
+        <div class="slogan-angle">Ángulo: Transformación — más emocional/aspiracional</div>
+      </div>
+      <div class="slogan-sel"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Identidad de marca JuPaFi Consultores &middot; <a href="https://jupaficonsultores.com" target="_blank">jupaficonsultores.com</a>
+</footer>
+<script>
+function toggle(el){el.classList.toggle('selected');}
+function toggleSlogan(el){el.classList.toggle('selected');}
+</script>
+</body>
+</html>

@@ -32,8 +32,8 @@ export function Showcase() {
             <span className="text-zinc-500">no en mockups.</span>
           </h2>
           <p className="mt-6 text-lg text-zinc-400 max-w-2xl leading-relaxed">
-            Estos screenshots se generan en tiempo real desde la URL pública —
-            es exactamente lo que verías si abrieras la app ahora.
+            Capturas reales de los productos en producción. Haz click en
+            cualquiera y compruébalo tú mismo.
           </p>
         </motion.div>
 

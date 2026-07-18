@@ -163,11 +163,11 @@ export function Footer() {
             <span className="hidden sm:inline font-mono">jupaficonsultores.com</span>
             <a
               href="/control"
-              className="text-zinc-900 hover:text-zinc-700 transition-colors font-mono text-base ml-1"
-              title="Panel"
+              className="text-zinc-700 hover:text-[#c8ff00] transition-colors font-mono text-sm ml-2 select-none"
+              title="Panel privado"
               aria-label="Panel privado"
             >
-              ◉
+              🔒
             </a>
           </nav>
         </div>

@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galeria JuPaFi - Posts Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{background:#09090b;color:#fafafa;font-family:Inter,system-ui,sans-serif;min-height:100vh}
+nav{border-bottom:1px solid #18181b;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(9,9,11,.92);backdrop-filter:blur(12px);z-index:100}
+.logo{display:flex;align-items:center;gap:12px}
+.J{width:38px;height:38px;border-radius:9px;background:#c8ff00;display:flex;align-items:center;justify-content:center;color:#09090b;font-weight:900;font-size:21px}
+.brand{font-size:16px;font-weight:700}.brand span{color:#52525b;font-weight:400}
+.badge{display:flex;align-items:center;gap:7px;border:1px solid #27272a;border-radius:999px;padding:5px 14px;font-size:11px;color:#a1a1aa;font-family:monospace;letter-spacing:1px}
+.dot{width:7px;height:7px;border-radius:50%;background:#c8ff00}
+.hero{max-width:840px;margin:0 auto;padding:64px 40px 40px;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #27272a;border-radius:999px;padding:5px 15px;font-size:11px;color:#a1a1aa;font-family:monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px}
+h1 em{color:#c8ff00;font-style:normal}
+p.desc{font-size:17px;color:#71717a;line-height:1.6;margin-bottom:16px}
+.grid{max-width:1160px;margin:0 auto 72px;padding:0 32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:#0f0f11;border:1px solid #27272a;border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s}
+.card:hover{transform:translateY(-4px);border-color:#c8ff00;box-shadow:0 16px 50px rgba(200,255,0,.07)}
+.card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#18181b}
+.meta{padding:18px 20px 20px}
+.lbl{font-size:10px;font-family:monospace;color:#c8ff00;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.ttl{font-size:16px;font-weight:700;margin-bottom:5px}
+.dsc{font-size:12px;color:#71717a;line-height:1.5;margin-bottom:11px}
+.row{display:flex;align-items:center;justify-content:space-between}
+.ok{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:7px;font-size:10px;font-weight:600;background:rgba(200,255,0,.1);color:#c8ff00;border:1px solid rgba(200,255,0,.22)}
+.warn{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:7px;font-size:10px;font-weight:600;background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.22)}
+.dl{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:7px;font-size:11px;font-weight:600;background:#27272a;color:#a1a1aa;text-decoration:none;transition:all .18s}
+.dl:hover{background:#c8ff00;color:#09090b}
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:24px}
+.lb.on{display:flex}
+.lb-wrap{position:relative}
+.lb img{max-height:88vh;max-width:92vw;border-radius:12px;display:block}
+.lbx{position:absolute;top:-44px;right:0;background:#27272a;border:none;color:#fafafa;border-radius:7px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600}
+.lbx:hover{background:#c8ff00;color:#09090b}
+.lbn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(24,24,27,.85);border:1px solid #27272a;color:#fafafa;border-radius:9px;padding:11px 15px;font-size:19px;cursor:pointer;transition:all .18s}
+.lbn:hover{background:#c8ff00;color:#09090b;border-color:#c8ff00}
+.lbp{left:-60px}.lbq{right:-60px}
+footer{border-top:1px solid #18181b;padding:28px 40px;text-align:center;color:#52525b;font-size:12px}
+footer a{color:#c8ff00;text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo"><div class="J">J</div><div class="brand">JuPaFi <span>Consultores</span></div></div>
+  <div class="badge"><div class="dot"></div>GALERIA DE MARKETING</div>
+</nav>
+<div class="hero">
+  <div class="chip"><span class="dot"></span>Activos de marketing</div>
+  <h1>Posts listos para <em>publicar</em></h1>
+  <p class="desc">Click en cada imagen para verla grande. Boton Descargar para guardarla en tu compu.</p>
+</div>
+<div class="grid">
+  <div class="card" onclick="lb(0)"><img src="00-logo.png" alt="Logo">
+    <div class="meta"><div class="lbl">Marca - Logo</div><div class="ttl">Logo JuPaFi</div><div class="dsc">Foto de perfil para todas las redes.</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="00-logo.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(1)"><img src="00-cover.png" alt="Portada">
+    <div class="meta"><div class="lbl">Marca - Portada</div><div class="ttl">Foto de Portada</div><div class="dsc">Banner LinkedIn y Facebook. Productos digitales que escalan.</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="00-cover.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(2)"><img src="01-presentacion.png" alt="Post 01">
+    <div class="meta"><div class="lbl">Post 01 - Presentacion</div><div class="ttl">Quienes somos</div><div class="dsc">Para estrenar el perfil. Primera semana. LinkedIn + Instagram.</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="01-presentacion.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(3)"><img src="02-track-record.png" alt="Post 02">
+    <div class="meta"><div class="lbl">Post 02 - Track Record</div><div class="ttl">13 productos en produccion</div><div class="dsc">Prueba social con los proyectos reales en produccion.</div>
+    <div class="row"><span class="warn">Refinar</span><a class="dl" href="02-track-record.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(4)"><img src="03-caso-cierra.png" alt="Post 03">
+    <div class="meta"><div class="lbl">Post 03 - Caso exito</div><div class="ttl">Cierra CRM</div><div class="dsc">SaaS de ventas en produccion. Demo en cierra-crm.vercel.app</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="03-caso-cierra.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(5)"><img src="04-comparativa.png" alt="Post 04">
+    <div class="meta"><div class="lbl">Post 04 - Diferenciacion</div><div class="ttl">JuPaFi vs Agencia</div><div class="dsc">Semanas vs meses, codigo tuyo vs licenciado.</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="04-comparativa.png" download>Descargar</a></div></div></div>
+  <div class="card" onclick="lb(6)"><img src="05-paquetes.png" alt="Post 05">
+    <div class="meta"><div class="lbl">Post 05 - Servicios</div><div class="ttl">Paquetes y precios</div><div class="dsc">Starter 15k / Growth 60k / Enterprise 150k MXN.</div>
+    <div class="row"><span class="ok">Listo</span><a class="dl" href="05-paquetes.png" download>Descargar</a></div></div></div>
+</div>
+<div class="lb" id="L" onclick="cbg(event)">
+  <div class="lb-wrap">
+    <button class="lbx" onclick="cl()">X Cerrar</button>
+    <button class="lbn lbp" onclick="n(-1)">&#8249;</button>
+    <img id="LI" src="" alt="">
+    <button class="lbn lbq" onclick="n(1)">&#8250;</button>
+  </div>
+</div>
+<footer>Archivos en marketing/posts/ &middot; <a href="https://jupaficonsultores.com" target="_blank">jupaficonsultores.com</a></footer>
+<script>
+var imgs=["00-logo.png","00-cover.png","01-presentacion.png","02-track-record.png","03-caso-cierra.png","04-comparativa.png","05-paquetes.png"],c=0;
+function lb(i){c=i;document.getElementById("LI").src=imgs[i];document.getElementById("L").classList.add("on");document.body.style.overflow="hidden";}
+function cl(){document.getElementById("L").classList.remove("on");document.body.style.overflow="";}
+function cbg(e){if(e.target===document.getElementById("L"))cl();}
+function n(d){c=(c+d+imgs.length)%imgs.length;document.getElementById("LI").src=imgs[c];}
+document.addEventListener("keydown",function(e){var L=document.getElementById("L");if(!L.classList.contains("on"))return;if(e.key==="Escape")cl();if(e.key==="ArrowLeft")n(-1);if(e.key==="ArrowRight")n(1);});
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 /**
  * Branded page loader. Shows on first paint, dismisses on window load.
- * Logo + counter from 0 to 100.
+ * Logo + counter from 0 to 100. Hardened against StrictMode double-render.
  */
 export function PageLoader() {
   const [done, setDone] = useState(false);
@@ -14,25 +14,30 @@ export function PageLoader() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    let active = true;
     const start = performance.now();
-    const duration = 1200; // 1.2s minimum show time
+    const duration = 900; // ms — keep snappy
+    let rafId = 0;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     const tick = (now: number) => {
-      if (!active) return;
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       setCount(Math.floor(progress * 100));
-      if (progress < 1) requestAnimationFrame(tick);
-      else {
-        // wait a touch then dismiss
-        setTimeout(() => active && setDone(true), 200);
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        timeoutId = setTimeout(() => setDone(true), 150);
       }
     };
-    requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
+
+    // Safety net: force-dismiss after 2s no matter what
+    const safety = setTimeout(() => setDone(true), 2000);
 
     return () => {
-      active = false;
+      cancelAnimationFrame(rafId);
+      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(safety);
     };
   }, []);
 
@@ -42,7 +47,7 @@ export function PageLoader() {
         <motion.div
           exit={{
             y: "-100%",
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },
           }}
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-zinc-950"
         >

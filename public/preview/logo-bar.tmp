@@ -1,0 +1,4 @@
+﻿<div class="logo-bar">
+  <div class="logo-icon"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6h6v14c0 2.2-1.8 4-4 4H8v-4h2V6z" fill="#09090b"/><path d="M16 6h6v10l-6 4V6z" fill="#09090b"/><path d="M22 6v10l-6 4v-4l4-2.7V6h2z" fill="#09090b" opacity=".5"/></svg></div>
+  <div class="logo-txt">JuPaFi <span>Consultores</span></div>
+</div>

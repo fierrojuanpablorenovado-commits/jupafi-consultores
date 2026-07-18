@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{background:#18181b;font-family:Inter,sans-serif;padding:40px 0}
+.post{width:1080px;height:1350px;position:relative;overflow:hidden;background:#09090b;color:#fafafa;margin:0 auto 60px;display:flex;flex-direction:column}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(39,39,42,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(39,39,42,.35) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 40%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 40%,transparent 80%)}
+.glow{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
+.pad{position:relative;padding:80px 88px;height:100%;display:flex;flex-direction:column;z-index:2}
+.logo-bar{display:flex;align-items:center;gap:14px;margin-bottom:auto}
+.logo-icon{width:52px;height:52px;border-radius:12px;background:#c8ff00;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;font-size:26px;color:#09090b;font-family:'JetBrains Mono',monospace}
+.logo-txt{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#fafafa}
+.logo-txt span{color:#52525b;font-weight:400;font-size:16px}
+.badge{display:inline-flex;align-items:center;gap:9px;padding:8px 18px;border:1px solid #27272a;border-radius:999px;font-size:14px;color:#a1a1aa;width:fit-content}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:#c8ff00;flex-shrink:0}
+.badge.lime{border-color:rgba(200,255,0,.3);background:rgba(200,255,0,.08);color:#c8ff00}
+h1.big{font-size:88px;font-weight:800;letter-spacing:-3px;line-height:.96;margin-bottom:20px}
+h1.mid{font-size:72px;font-weight:800;letter-spacing:-2.5px;line-height:.97;margin-bottom:20px}
+h1.sml{font-size:56px;font-weight:800;letter-spacing:-2px;line-height:1.0;margin-bottom:20px}
+.accent{color:#c8ff00}
+.sub{font-size:28px;color:#a1a1aa;line-height:1.5;font-weight:400}
+.mono{font-family:'JetBrains Mono',monospace}
+.url{font-size:22px;color:#52525b;font-family:'JetBrains Mono',monospace;letter-spacing:-.5px;margin-top:auto;padding-top:32px}
+.url span{color:#c8ff00}
+.tag{display:inline-block;padding:6px 14px;border-radius:8px;font-size:13px;font-family:'JetBrains Mono',monospace;background:rgba(200,255,0,.1);color:#c8ff00;border:1px solid rgba(200,255,0,.25)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;font-size:16px;font-weight:600;border:1px solid #27272a;color:#a1a1aa}
+.pill .d{width:8px;height:8px;border-radius:50%;background:#c8ff00}
+.step{display:flex;align-items:flex-start;gap:24px;padding:22px 0;border-bottom:1px solid #18181b}
+.step:last-child{border-bottom:none}
+.step-num{width:48px;height:48px;border-radius:12px;background:rgba(200,255,0,.1);border:1px solid rgba(200,255,0,.25);display:flex;align-items:center;justify-content:center;color:#c8ff00;font-weight:700;font-size:18px;font-family:monospace;flex-shrink:0}
+.step-body h3{font-size:22px;font-weight:700;margin-bottom:6px}
+.step-body p{font-size:16px;color:#71717a;line-height:1.5}
+.list-item{display:flex;align-items:flex-start;gap:20px;padding:20px 0;border-bottom:1px solid #18181b}
+.list-item:last-child{border-bottom:none}
+.list-num{color:#c8ff00;font-family:monospace;font-size:18px;font-weight:700;flex-shrink:0;width:32px}
+.list-body h3{font-size:21px;font-weight:700;margin-bottom:5px}
+.list-body p{font-size:15px;color:#71717a;line-height:1.5}
+.code-block{background:#0a0a0c;border:1px solid #27272a;border-radius:16px;padding:28px 32px;font-family:'JetBrains Mono',monospace;font-size:17px;line-height:1.7}
+.code-block .kw{color:#c8ff00}.code-block .str{color:#86efac}.code-block .cm{color:#52525b}
+.check{color:#c8ff00;font-size:20px}.cross{color:#52525b;font-size:20px}.hl{color:#c8ff00;font-weight:600}
+table.tbl{width:100%;border-collapse:collapse;font-size:17px}
+table.tbl th{text-align:left;padding:14px 18px;color:#a1a1aa;font-weight:500;border-bottom:1px solid #27272a;font-size:14px}
+table.tbl td{padding:18px 18px;border-bottom:1px solid #18181b;vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl .tc{text-align:center}
+.vs-label{display:inline-block;padding:4px 12px;border-radius:6px;font-size:11px;font-family:monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.vs-label.them{background:#27272a;color:#71717a}.vs-label.us{background:rgba(200,255,0,.15);color:#c8ff00}
+</style>
+</head>
+<body>
+
+<!-- POST 01 — PRESENTACIÓN -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:600px;height:600px;background:#c8ff00;opacity:.04;top:-200px;left:-100px"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:60px"><div class="badge"><span class="dot"></span>Guadalajara, México</div></div>
+    <div style="margin-top:40px;flex:1;display:flex;flex-direction:column;justify-content:center">
+      <h1 class="big">Productos<br>digitales<br>que <span class="accent">escalan.</span></h1>
+      <p class="sub" style="margin-top:24px;max-width:700px">Construimos SaaS, apps con IA y automatizaciones en <strong style="color:#fafafa">semanas</strong>, no en trimestres.</p>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:36px">
+      <span class="pill"><span class="d"></span>13+ proyectos</span>
+      <span class="pill"><span class="d"></span>100% cloud</span>
+      <span class="pill"><span class="d"></span>Código tuyo</span>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 02 — TRACK RECORD -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Track record real</div></div>
+    <div style="margin-top:32px"><h1 class="mid">Lo que ya<br>hemos <span class="accent">construido.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;margin-top:28px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px">
+          <div class="tag" style="margin-bottom:10px">SaaS</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:5px">Cierra CRM</div>
+          <div style="font-size:14px;color:#71717a">Pipeline · Recordatorios automáticos</div>
+        </div>
+        <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px">
+          <div class="tag" style="margin-bottom:10px">SaaS</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:5px">Vista3D</div>
+          <div style="font-size:14px;color:#71717a">Gaussian Splatting en el navegador</div>
+        </div>
+        <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px">
+          <div class="tag" style="margin-bottom:10px">IA</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:5px">Entrevista Virtual</div>
+          <div style="font-size:14px;color:#71717a">Pre-filtra candidatos 24/7 con voz</div>
+        </div>
+        <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px">
+          <div class="tag" style="margin-bottom:10px">SaaS</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:5px">Gestiona Flotilla</div>
+          <div style="font-size:14px;color:#71717a">Control vehicular multi-tenant</div>
+        </div>
+      </div>
+      <div style="background:rgba(200,255,0,.05);border:1px solid rgba(200,255,0,.15);border-radius:14px;padding:18px 26px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:17px;color:#a1a1aa">Y 9 proyectos más en producción</span>
+        <span style="font-size:22px;font-weight:700;color:#c8ff00">→</span>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 03 — CASO CIERRA CRM -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:500px;height:500px;background:#c8ff00;opacity:.05;bottom:-100px;right:-100px"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Caso de éxito</div></div>
+    <div style="margin-top:32px"><h1 class="mid">Cierra CRM</h1><p class="sub" style="margin-top:12px">El CRM que cierra contigo.</p></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:0;margin-top:36px">
+      <div class="step"><div class="step-num">01</div><div class="step-body"><h3>El problema</h3><p>Equipos de ventas perdiendo leads por desorden en Excel y WhatsApp.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-body"><h3>La solución</h3><p>SaaS con pipeline visual, recordatorios automáticos y login en 3 minutos.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-body"><h3>El resultado</h3><p>En producción. Demo gratis en cierra-crm.vercel.app</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 04 — CASO VISTA3D -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Caso · Tecnología</div></div>
+    <div style="margin-top:40px;flex:1;display:flex;flex-direction:column;justify-content:center">
+      <p style="font-size:22px;color:#71717a;margin-bottom:18px">Esto corre en tu navegador.</p>
+      <h1 class="mid"><span class="accent">Vista3D</span> —<br>escaneo 3D<br>sin instalar nada.</h1>
+      <p class="sub" style="margin-top:24px">Gaussian Splatting. 60fps. Hasta en celular.</p>
+      <div style="margin-top:36px;background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px">
+        <div class="mono" style="font-size:16px;color:#71717a">vista3d-beige.vercel.app</div>
+        <div style="font-size:18px;font-weight:600;margin-top:8px">Demo en vivo disponible →</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 05 — ENTREVISTA VIRTUAL -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">IA aplicada</div></div>
+    <div style="margin-top:36px"><h1 class="mid">Tu entrevistador<br>trabaja <span class="accent">24/7.</span></h1><p class="sub" style="margin-top:20px">IA que pre-filtra candidatos con voz. Sin que tú levantes el teléfono.</p></div>
+    <div style="flex:1;display:flex;gap:20px;margin-top:36px;align-items:stretch">
+      <div style="flex:1;background:#111113;border:1px solid #27272a;border-radius:20px;padding:30px;display:flex;flex-direction:column">
+        <div style="font-size:40px;margin-bottom:14px">&#127908;</div>
+        <h3 style="font-size:22px;font-weight:700;margin-bottom:8px">Voz española</h3>
+        <p style="font-size:16px;color:#71717a">ElevenLabs + Marianne IA. Natural, no robótica.</p>
+      </div>
+      <div style="flex:1;background:#111113;border:1px solid #27272a;border-radius:20px;padding:30px;display:flex;flex-direction:column">
+        <div style="font-size:40px;margin-bottom:14px">&#9889;</div>
+        <h3 style="font-size:22px;font-weight:700;margin-bottom:8px">Siempre activo</h3>
+        <p style="font-size:16px;color:#71717a">Filtra, evalúa y reporta. Sin costo extra de nómina.</p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 06 — EL STACK -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Stack tecnológico</div></div>
+    <div style="margin-top:32px"><h1 class="mid">Tecnología de<br><span class="accent">primer nivel.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px;margin-top:32px">
+      <div class="code-block">
+        <div><span class="kw">const</span> stack = {</div>
+        <div>&nbsp;&nbsp;frontend: <span class="str">"Next.js 14 + Tailwind"</span>,</div>
+        <div>&nbsp;&nbsp;ia: <span class="str">"GPT-4 + ElevenLabs + Whisper"</span>,</div>
+        <div>&nbsp;&nbsp;db: <span class="str">"Postgres (Neon) + Supabase"</span>,</div>
+        <div>&nbsp;&nbsp;deploy: <span class="str">"Vercel — 100% cloud"</span>,</div>
+        <div>&nbsp;&nbsp;codigo: <span class="kw">true</span>, <span class="cm">// 100% tuyo</span></div>
+        <div>}</div>
+      </div>
+      <div style="background:rgba(200,255,0,.05);border:1px solid rgba(200,255,0,.15);border-radius:16px;padding:22px 26px">
+        <p style="font-size:18px;color:#a1a1aa">El mismo stack que usa <strong style="color:#fafafa">Vercel, Linear y Stripe.</strong></p>
+        <p style="font-size:15px;color:#52525b;margin-top:8px">No WordPress. No Wix. No deuda técnica.</p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 07 — SEMANAS NO MESES -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:700px;height:400px;background:#c8ff00;opacity:.04;top:350px;left:50%;transform:translateX(-50%)"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div class="badge" style="margin-bottom:32px">La promesa</div>
+      <h1 class="big" style="text-align:center">De la idea<br>al deploy.<br><span class="accent">En semanas.</span></h1>
+      <p class="sub" style="margin-top:24px;max-width:700px">Mientras las agencias te entregan en 12 meses, nosotros ya vamos en producción.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px">
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px;text-align:center">
+        <div class="mono" style="font-size:12px;color:#71717a;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">Agencia tradicional</div>
+        <div style="font-size:48px;font-weight:900;color:#ef4444">12 meses</div>
+      </div>
+      <div style="background:rgba(200,255,0,.05);border:1px solid rgba(200,255,0,.25);border-radius:16px;padding:22px;text-align:center">
+        <div class="mono" style="font-size:12px;color:#c8ff00;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">JuPaFi</div>
+        <div style="font-size:48px;font-weight:900;color:#c8ff00">6 semanas</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 08 — COMPARATIVA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Por que JuPaFi</div></div>
+    <div style="margin-top:28px;margin-bottom:28px"><h1 class="sml">JuPaFi vs<br>Agencia <span class="accent">tradicional</span></h1></div>
+    <div style="flex:1;overflow:hidden">
+      <table class="tbl">
+        <thead><tr><th style="width:40%">Criterio</th><th class="tc" style="color:#71717a">Agencia</th><th class="tc" style="color:#c8ff00">JuPaFi</th></tr></thead>
+        <tbody>
+          <tr><td>Tiempo de entrega</td><td class="tc" style="color:#ef4444">6-12 meses</td><td class="tc hl">4-8 semanas</td></tr>
+          <tr><td>El codigo es tuyo</td><td class="tc cross">✗</td><td class="tc check">✓</td></tr>
+          <tr><td>Quien te atiende</td><td class="tc" style="color:#71717a">Junior asignado</td><td class="tc hl">El fundador</td></tr>
+          <tr><td>Modelo de cobro</td><td class="tc" style="color:#71717a">Por hora</td><td class="tc hl">Por entregable</td></tr>
+          <tr><td>Escalabilidad</td><td class="tc cross">✗</td><td class="tc check">✓ multi-tenant</td></tr>
+          <tr><td>IA incluida</td><td class="tc" style="color:#71717a">Opcional (+$$$)</td><td class="tc hl">Nativa</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 09 — PAQUETES -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Servicios y precios</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">Paquetes<br><span class="accent">transparentes.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+      <div style="background:#111113;border:1px solid #27272a;border-radius:18px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between">
+        <div><div class="tag" style="margin-bottom:10px;font-size:11px">STARTER</div><div style="font-size:20px;font-weight:700">Landing + Formulario + Deploy</div><div style="font-size:14px;color:#71717a;margin-top:5px">Listo en 2 semanas</div></div>
+        <div style="font-size:34px;font-weight:900;white-space:nowrap">$15k <span style="font-size:15px;color:#71717a">MXN</span></div>
+      </div>
+      <div style="background:rgba(200,255,0,.04);border:2px solid rgba(200,255,0,.3);border-radius:18px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:-12px;left:30px;background:#c8ff00;color:#09090b;padding:4px 14px;border-radius:999px;font-size:11px;font-weight:700;font-family:monospace">MAS POPULAR</div>
+        <div><div class="tag" style="margin-bottom:10px;font-size:11px">GROWTH</div><div style="font-size:20px;font-weight:700">App completa con IA</div><div style="font-size:14px;color:#71717a;margin-top:5px">Auth, DB, API, Deploy. 6-8 semanas</div></div>
+        <div style="font-size:34px;font-weight:900;color:#c8ff00;white-space:nowrap">$60k <span style="font-size:15px;color:#71717a">MXN</span></div>
+      </div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:18px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between">
+        <div><div class="tag" style="margin-bottom:10px;font-size:11px">ENTERPRISE</div><div style="font-size:20px;font-weight:700">SaaS multi-tenant completo</div><div style="font-size:14px;color:#71717a;margin-top:5px">Multi-cliente, Billing. 10-12 semanas</div></div>
+        <div style="font-size:34px;font-weight:900;white-space:nowrap">$150k <span style="font-size:15px;color:#71717a">MXN</span></div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 10 — EL PROCESO -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Asi trabajamos</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">El proceso en<br><span class="accent">5 pasos.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="step"><div class="step-num">01</div><div class="step-body"><h3>Diagnostico</h3><p>Entendemos tu negocio. Definimos que construir. 1 semana.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-body"><h3>Roadmap</h3><p>Plan tecnico con fechas y costos fijos. Sin sorpresas.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-body"><h3>Construccion</h3><p>Sprints de 1 semana. Ves avances cada viernes.</p></div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-body"><h3>Lanzamiento</h3><p>Deploy a produccion. Dominio, SSL, analytics. Todo listo.</p></div></div>
+      <div class="step"><div class="step-num">05</div><div class="step-body"><h3>Escalamiento</h3><p>Seguimos contigo. Soporte, mejoras, nuevas funciones.</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 11 — QUE ES SAAS -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Educacion SaaS</div></div>
+    <div style="margin-top:36px;flex:1;display:flex;flex-direction:column;justify-content:center">
+      <h1 class="mid">Por que un SaaS<br>es el mejor<br><span class="accent">activo digital.</span></h1>
+      <p class="sub" style="margin-top:24px">Tu cliente paga mensual. Tu cobras recurrente. El negocio escala sin contratar mas.</p>
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#111113;border:1px solid #27272a;border-radius:12px">
+          <span style="color:#c8ff00;font-size:20px">→</span><span style="font-size:18px">Ingresos <strong>recurrentes y predecibles</strong></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#111113;border:1px solid #27272a;border-radius:12px">
+          <span style="color:#c8ff00;font-size:20px">→</span><span style="font-size:18px">Crece sin contratar mas personal</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#111113;border:1px solid #27272a;border-radius:12px">
+          <span style="color:#c8ff00;font-size:20px">→</span><span style="font-size:18px">Tu activo digital mas valioso</span>
+        </div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 12 — 3 AUTOMATIZACIONES -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Tip de la semana</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">3 cosas que puedes<br>automatizar<br><span class="accent">esta semana.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="list-item"><div class="list-num">01</div><div class="list-body"><h3>Responder clientes en WhatsApp</h3><p>Un bot responde, agenda y pre-filtra mientras duermes. 24/7.</p></div></div>
+      <div class="list-item"><div class="list-num">02</div><div class="list-body"><h3>Seguimiento de cotizaciones</h3><p>Sistema que recuerda cada oportunidad sin que se pierda ninguna.</p></div></div>
+      <div class="list-item"><div class="list-num">03</div><div class="list-body"><h3>Capturar y organizar leads</h3><p>Cada interesado entra solo a tu CRM, ordenado y con seguimiento.</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 13 — EL CODIGO ES TUYO -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:500px;height:500px;background:#c8ff00;opacity:.04;top:400px;left:50%;transform:translateX(-50%)"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="badge" style="margin-bottom:32px">Por que importa</div>
+      <h1 class="mid">Tu producto.<br>Tu codigo.<br><span class="accent">Tu negocio.</span></h1>
+      <p class="sub" style="margin-top:24px">Cuando termina el proyecto, el codigo queda 100% en tu repositorio. Sin licencias. Sin dependencia de nosotros.</p>
+      <div style="margin-top:36px;padding:26px 30px;background:#111113;border-left:4px solid #c8ff00;border-radius:0 16px 16px 0">
+        <p style="font-size:20px;color:#a1a1aa">Las agencias te construyen en sus plataformas.<br><strong style="color:#fafafa">Nosotros te construimos en la tuya.</strong></p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 14 — CASO FLOTILLA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Caso de exito SaaS</div></div>
+    <div style="margin-top:28px"><h1 class="mid">Gestiona<br>tu <span class="accent">Flotilla</span></h1><p class="sub" style="margin-top:14px">Control vehicular multi-tenant.</p></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:0;margin-top:32px">
+      <div class="step"><div class="step-num">01</div><div class="step-body"><h3>Multi-empresa</h3><p>Cada cliente tiene su propio panel con sus datos aislados.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-body"><h3>GPS + Alertas</h3><p>Seguimiento en tiempo real. Alertas configurables por empresa.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-body"><h3>En produccion</h3><p>gestiona-tu-flotilla.vercel.app — acceso demo disponible.</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 15 — TIP SAAS MEXICO -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Estrategia Fundadores</div></div>
+    <div style="margin-top:28px;margin-bottom:28px"><h1 class="sml">Como validar tu SaaS<br>en Mexico<br><span class="accent">sin gastar de mas.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="list-item"><div class="list-num">01</div><div class="list-body"><h3>Habla con 10 clientes primero</h3><p>Antes de escribir codigo, confirma que pagarian.</p></div></div>
+      <div class="list-item"><div class="list-num">02</div><div class="list-body"><h3>MVP en 4 semanas</h3><p>Una funcion que resuelva UN problema real. Nada mas.</p></div></div>
+      <div class="list-item"><div class="list-num">03</div><div class="list-body"><h3>Cobra desde el dia 1</h3><p>Aunque sea beta. El dinero es el mejor validador.</p></div></div>
+      <div class="list-item"><div class="list-num">04</div><div class="list-body"><h3>Itera con usuarios reales</h3><p>El roadmap lo dictan tus clientes, no tus suposiciones.</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 16 — IA VENTAJA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="badge" style="margin-bottom:32px">IA en los negocios</div>
+      <h1 class="mid">La IA no te quita<br>el trabajo.<br>Te da <span class="accent">ventaja.</span></h1>
+      <p class="sub" style="margin-top:24px">El que la usa escala sin contratar. El que no, compite contra quien si la usa.</p>
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:#111113;border:1px solid #27272a;border-radius:14px">
+          <span style="font-size:28px">&#129302;</span>
+          <div><div style="font-weight:600;font-size:18px">Atencion al cliente automatizada</div><div style="font-size:14px;color:#71717a">WhatsApp + IA = 0 costo adicional por lead</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:#111113;border:1px solid #27272a;border-radius:14px">
+          <span style="font-size:28px">&#128202;</span>
+          <div><div style="font-weight:600;font-size:18px">Analisis de datos en segundos</div><div style="font-size:14px;color:#71717a">Lo que antes tardaba horas, ahora en minutos</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 17 — LANDING APP SAAS -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Glosario digital</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">Landing, App o SaaS —<br><span class="accent">cual necesitas?</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px 26px">
+        <div class="tag" style="margin-bottom:10px;font-size:11px">LANDING</div>
+        <p style="font-size:17px;line-height:1.6">Convierte visitantes en leads. <span style="color:#c8ff00;font-weight:600">Desde $15k MXN.</span> Lista en 2 semanas.</p>
+      </div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px 26px">
+        <div class="tag" style="margin-bottom:10px;font-size:11px">APP</div>
+        <p style="font-size:17px;line-height:1.6">Login, datos y logica de negocio. <span style="color:#c8ff00;font-weight:600">Desde $60k MXN.</span> 6-8 semanas.</p>
+      </div>
+      <div style="background:rgba(200,255,0,.04);border:1px solid rgba(200,255,0,.2);border-radius:16px;padding:22px 26px">
+        <div class="tag" style="margin-bottom:10px;font-size:11px">SAAS</div>
+        <p style="font-size:17px;line-height:1.6">Multi-cliente, billing, ingresos recurrentes. <span style="color:#c8ff00;font-weight:600">Desde $150k MXN.</span> 10-12 semanas.</p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 18 — POR QUE TARDAN 1 ANO -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="badge" style="margin-bottom:32px">La verdad del mercado</div>
+      <h1 class="mid">Por que las agencias<br>tardan<br><span class="accent">1 año.</span></h1>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:16px;align-items:flex-start"><span style="color:#ef4444;font-size:22px;flex-shrink:0">✗</span><p style="font-size:19px;line-height:1.5">Te ponen <strong>juniors que aprenden</strong> con tu proyecto</p></div>
+        <div style="display:flex;gap:16px;align-items:flex-start"><span style="color:#ef4444;font-size:22px;flex-shrink:0">✗</span><p style="font-size:19px;line-height:1.5">Cobran por hora — <strong>tardar les conviene</strong></p></div>
+        <div style="display:flex;gap:16px;align-items:flex-start"><span style="color:#ef4444;font-size:22px;flex-shrink:0">✗</span><p style="font-size:19px;line-height:1.5">Procesos internos que no aportan a tu producto</p></div>
+        <div style="display:flex;gap:16px;align-items:flex-start"><span style="color:#c8ff00;font-size:22px;flex-shrink:0">✓</span><p style="font-size:19px;line-height:1.5">Nosotros cobramos por entregable. Nos conviene <strong style="color:#c8ff00">ser rapidos.</strong></p></div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 19 — 5 SEÑALES -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Es para ti?</div></div>
+    <div style="margin-top:28px;margin-bottom:28px"><h1 class="sml">5 senales de que<br>necesitas un<br><span class="accent">sistema digital.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="list-item"><div class="list-num">01</div><div class="list-body"><h3>Usas Excel para todo</h3><p>Ventas, inventario, clientes en hojas sueltas.</p></div></div>
+      <div class="list-item"><div class="list-num">02</div><div class="list-body"><h3>Pierdes leads por seguimiento</h3><p>No sabes en que etapa va cada cliente potencial.</p></div></div>
+      <div class="list-item"><div class="list-num">03</div><div class="list-body"><h3>Tu equipo hace tareas repetitivas</h3><p>Cosas que un sistema haria en segundos y sin errores.</p></div></div>
+      <div class="list-item"><div class="list-num">04</div><div class="list-body"><h3>No tienes datos para decidir</h3><p>Sin metricas claras de tu operacion o ventas.</p></div></div>
+      <div class="list-item"><div class="list-num">05</div><div class="list-body"><h3>Quieres escalar sin contratar mas</h3><p>El crecimiento esta atado a personas, no a procesos.</p></div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 20 — TRAMA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Proyecto en desarrollo</div></div>
+    <div style="margin-top:28px"><h1 class="mid">Trama —<br>plataforma<br><span class="accent">conversacional.</span></h1><p class="sub" style="margin-top:16px">SaaS multi-tenant para WhatsApp Business a escala.</p></div>
+    <div style="flex:1;display:flex;gap:18px;margin-top:32px">
+      <div style="flex:1;background:#111113;border:1px solid #27272a;border-radius:18px;padding:26px">
+        <div style="font-size:32px;margin-bottom:12px">&#128172;</div>
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Multi-canal</h3>
+        <p style="font-size:15px;color:#71717a">WhatsApp + webhooks. Un inbox para todo tu equipo.</p>
+      </div>
+      <div style="flex:1;background:#111113;border:1px solid #27272a;border-radius:18px;padding:26px">
+        <div style="font-size:32px;margin-bottom:12px">&#129302;</div>
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">IA nativa</h3>
+        <p style="font-size:15px;color:#71717a">Respuestas automaticas. Clasificacion de intenciones.</p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 21 — STACK MODERNO VS LEGACY -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Tecnologia Decision</div></div>
+    <div style="margin-top:28px;margin-bottom:28px"><h1 class="sml">Stack moderno vs Legacy.<br><span class="accent">Importa mas<br>de lo que crees.</span></h1></div>
+    <div style="flex:1;display:flex;gap:18px">
+      <div style="flex:1;background:#111113;border:1px solid #27272a;border-radius:18px;padding:26px">
+        <div class="vs-label them">LEGACY</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:16px;color:#71717a;display:flex;gap:10px"><span style="color:#ef4444">✗</span>PHP sin actualizar</div>
+          <div style="font-size:16px;color:#71717a;display:flex;gap:10px"><span style="color:#ef4444">✗</span>Hosting compartido lento</div>
+          <div style="font-size:16px;color:#71717a;display:flex;gap:10px"><span style="color:#ef4444">✗</span>Sin control de versiones</div>
+          <div style="font-size:16px;color:#71717a;display:flex;gap:10px"><span style="color:#ef4444">✗</span>Deuda tecnica acumulada</div>
+        </div>
+      </div>
+      <div style="flex:1;background:rgba(200,255,0,.04);border:1px solid rgba(200,255,0,.2);border-radius:18px;padding:26px">
+        <div class="vs-label us">JUPAFI</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:16px;display:flex;gap:10px"><span style="color:#c8ff00">✓</span>Next.js 14 + TypeScript</div>
+          <div style="font-size:16px;display:flex;gap:10px"><span style="color:#c8ff00">✓</span>Vercel Edge — global</div>
+          <div style="font-size:16px;display:flex;gap:10px"><span style="color:#c8ff00">✓</span>Git + CI/CD automatico</div>
+          <div style="font-size:16px;display:flex;gap:10px"><span style="color:#c8ff00">✓</span>Escalable desde dia 1</div>
+        </div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 22 — CTA CONSULTA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:700px;height:700px;background:#c8ff00;opacity:.05;top:300px;left:50%;transform:translateX(-50%)"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div class="badge" style="margin-bottom:28px">Consulta sin costo</div>
+      <h1 class="big" style="text-align:center">Que quieres<br><span class="accent">construir?</span></h1>
+      <p class="sub" style="margin-top:24px;max-width:700px">30 minutos. Sin pitch de ventas. Solo entendemos tu reto y te decimos si podemos ayudarte.</p>
+      <div style="margin-top:44px;background:rgba(200,255,0,.08);border:2px solid rgba(200,255,0,.3);border-radius:20px;padding:30px 44px">
+        <div style="font-size:22px;font-weight:700;margin-bottom:10px">Agendar ahora →</div>
+        <div class="mono" style="font-size:18px;color:#c8ff00">jupaficonsultores.com</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 23 — FAQS -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Preguntas frecuentes</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">Lo que nos<br>preguntan<br><span class="accent">siempre.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px 26px">
+        <div style="font-weight:700;font-size:19px;margin-bottom:8px;color:#c8ff00">Y si quiero cambios despues?</div>
+        <div style="font-size:16px;color:#a1a1aa">El codigo es tuyo. Puedes contratar a quien quieras. O a nosotros con mantenimiento mensual.</div>
+      </div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px 26px">
+        <div style="font-weight:700;font-size:19px;margin-bottom:8px;color:#c8ff00">Tienen experiencia en mi industria?</div>
+        <div style="font-size:16px;color:#a1a1aa">13+ proyectos en ventas, flotas, bienes raices, educacion, IA y fintech. Es probable que si.</div>
+      </div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:22px 26px">
+        <div style="font-weight:700;font-size:19px;margin-bottom:8px;color:#c8ff00">Como se que lo van a terminar?</div>
+        <div style="font-size:16px;color:#a1a1aa">Cobramos por entregables, no adelantado. Solo pagas cuando ves resultados.</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 24 — GARANTIA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="badge" style="margin-bottom:32px">Nuestra garantia</div>
+      <h1 class="mid">El codigo es<br>tuyo desde<br><span class="accent">dia 1.</span></h1>
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:18px;align-items:flex-start;padding:18px 22px;background:#111113;border:1px solid #27272a;border-radius:14px">
+          <span style="color:#c8ff00;font-size:24px;flex-shrink:0">✓</span><p style="font-size:18px;line-height:1.5">Repositorio en <strong>tu GitHub</strong> desde el primer commit</p>
+        </div>
+        <div style="display:flex;gap:18px;align-items:flex-start;padding:18px 22px;background:#111113;border:1px solid #27272a;border-radius:14px">
+          <span style="color:#c8ff00;font-size:24px;flex-shrink:0">✓</span><p style="font-size:18px;line-height:1.5">Precios fijos por entregable. <strong>Sin sorpresas.</strong></p>
+        </div>
+        <div style="display:flex;gap:18px;align-items:flex-start;padding:18px 22px;background:rgba(200,255,0,.04);border:1px solid rgba(200,255,0,.2);border-radius:14px">
+          <span style="color:#c8ff00;font-size:24px;flex-shrink:0">✓</span><p style="font-size:18px;line-height:1.5">Si no entregamos lo acordado, <strong style="color:#c8ff00">no cobras.</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 25 — BEHIND THE SCENES -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Behind the scenes</div></div>
+    <div style="margin-top:28px;margin-bottom:28px"><h1 class="sml">Asi nace un<br>producto <span class="accent">digital.</span></h1></div>
+    <div style="flex:1">
+      <div class="code-block">
+        <div><span class="cm">// Semana 1 — Diagnostico</span></div>
+        <div><span class="kw">const</span> reto = await <span class="str">entender(cliente)</span></div>
+        <div style="height:14px"></div>
+        <div><span class="cm">// Semanas 2-4 — Construccion</span></div>
+        <div><span class="kw">const</span> mvp = await <span class="str">build(reto, stack)</span></div>
+        <div><span class="cm">// sprint semanal + demo cada viernes</span></div>
+        <div style="height:14px"></div>
+        <div><span class="cm">// Semana 5-6 — Lanzamiento</span></div>
+        <div><span class="kw">const</span> prod = await <span class="str">deploy(mvp)</span></div>
+        <div><span class="cm">// dominio, SSL, analytics, listo</span></div>
+        <div style="height:14px"></div>
+        <div><span class="kw">return</span> { codigo: <span class="str">"tuyo"</span>, deuda: <span class="kw">false</span> }</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 26 — VANTOR -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge lime">Proyecto en beta</div></div>
+    <div style="margin-top:28px"><h1 class="mid">Vantor —<br>tracking de<br><span class="accent">ventas.</span></h1><p class="sub" style="margin-top:16px">7 modulos para equipos comerciales que quieren cerrar mas.</p></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;align-content:start">
+      <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:20px"><div style="font-size:24px;margin-bottom:8px">&#128200;</div><div style="font-weight:600;font-size:17px">Pipeline visual</div></div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:20px"><div style="font-size:24px;margin-bottom:8px">&#127919;</div><div style="font-weight:600;font-size:17px">Metas y comisiones</div></div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:20px"><div style="font-size:24px;margin-bottom:8px">&#128202;</div><div style="font-weight:600;font-size:17px">Reportes Recharts</div></div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:20px"><div style="font-size:24px;margin-bottom:8px">&#128276;</div><div style="font-weight:600;font-size:17px">Alertas SLA</div></div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 27 — OFERTA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:600px;height:600px;background:#c8ff00;opacity:.05;top:400px;right:-200px"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="badge lime" style="margin-bottom:32px">Oferta de lanzamiento</div>
+      <h1 class="mid">Primera consulta<br><span class="accent">gratis.</span><br>Sin compromisos.</h1>
+      <p class="sub" style="margin-top:24px">30 min con el fundador. Te digo exactamente que se puede construir, en cuanto tiempo y a que costo.</p>
+      <div style="margin-top:40px;padding:32px 36px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.25);border-radius:22px">
+        <div style="font-size:19px;margin-bottom:14px">Plazas limitadas esta semana</div>
+        <div class="mono" style="font-size:22px;color:#c8ff00;font-weight:700">jupaficonsultores.com →</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 28 — WHATSAPP CTA -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div style="font-size:80px;margin-bottom:20px">&#128172;</div>
+      <h1 class="mid" style="text-align:center">Escribenos<br>por <span class="accent">WhatsApp.</span></h1>
+      <p class="sub" style="margin-top:20px;max-width:680px">Cuentanos tu idea o tu problema. Respondemos en menos de 2 horas en dias habiles.</p>
+      <div style="margin-top:40px;padding:28px 40px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.25);border-radius:20px">
+        <div class="mono" style="font-size:20px;color:#c8ff00">+52 33 1293 3906</div>
+        <div style="font-size:16px;color:#71717a;margin-top:8px">WhatsApp Business</div>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 29 — MES 1 RESUMEN -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo-bar"><div class="logo-icon">JP</div><div class="logo-txt">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:56px"><div class="badge">Cierre Mes 1</div></div>
+    <div style="margin-top:28px;margin-bottom:32px"><h1 class="sml">Un mes en redes.<br>Lo que aprendimos<br><span class="accent">juntos.</span></h1></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div style="background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.2);border-radius:14px;padding:22px;text-align:center">
+          <div style="font-size:48px;font-weight:900;color:#c8ff00;font-family:monospace">30</div>
+          <div style="font-size:14px;color:#71717a;margin-top:4px">posts</div>
+        </div>
+        <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:22px;text-align:center">
+          <div style="font-size:48px;font-weight:900;font-family:monospace">13+</div>
+          <div style="font-size:14px;color:#71717a;margin-top:4px">proyectos</div>
+        </div>
+        <div style="background:#111113;border:1px solid #27272a;border-radius:14px;padding:22px;text-align:center">
+          <div style="font-size:48px;font-weight:900;font-family:monospace">1</div>
+          <div style="font-size:14px;color:#71717a;margin-top:4px">equipo</div>
+        </div>
+      </div>
+      <div style="background:#111113;border:1px solid #27272a;border-radius:16px;padding:26px;flex:1;display:flex;align-items:center">
+        <p style="font-size:22px;line-height:1.5;color:#a1a1aa">Gracias por seguir el viaje. Lo mejor <strong style="color:#fafafa">esta por venir.</strong></p>
+      </div>
+    </div>
+    <div class="url"><span>jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+<!-- POST 30 — IDENTIDAD CIERRE -->
+<div class="post">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:800px;height:800px;background:#c8ff00;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="pad" style="align-items:center;justify-content:center;text-align:center">
+    <div style="display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:56px">
+      <div style="width:80px;height:80px;border-radius:18px;background:#c8ff00;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:36px;color:#09090b;font-family:'JetBrains Mono',monospace">JP</div>
+      <div style="font-size:30px;font-weight:700">JuPaFi <span style="color:#52525b;font-weight:400;font-size:24px">Consultores</span></div>
+    </div>
+    <h1 class="big" style="text-align:center">Tu producto.<br>Tu codigo.<br><span class="accent">Tu negocio.</span></h1>
+    <p class="sub" style="margin-top:28px;max-width:700px">Consultoria boutique de productos digitales.<br>SaaS · IA · Automatizacion.</p>
+    <div style="margin-top:48px" class="mono"><span style="font-size:24px;color:#c8ff00">jupaficonsultores.com</span></div>
+  </div>
+</div>
+
+</body>
+</html>

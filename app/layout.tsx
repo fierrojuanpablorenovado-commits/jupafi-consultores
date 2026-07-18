@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import PremiumPolish from "@/components/premium-polish";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://jupaficonsultores.com"),
   title: "JuPaFi Consultores — Productos digitales que escalan",
   description:
-    "Consultoría boutique que construye SaaS, apps con IA, automatizaciones y landings premium. 14+ productos digitales lanzados. Stack moderno, ejecución rápida.",
+    "Consultoría boutique que construye SaaS, apps con IA, automatizaciones y landings premium. 13 productos en producción. Stack moderno, ejecución rápida.",
   keywords: [
     "consultoría digital",
     "desarrollo SaaS México",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "JuPaFi Consultores — Productos digitales que escalan",
     description:
-      "Construimos SaaS multi-tenant, apps con IA y automatizaciones que sí funcionan. 14+ productos en producción.",
+      "Construimos SaaS multi-tenant, apps con IA y automatizaciones que sí funcionan. 13 productos en producción, todos verificables.",
     url: "https://jupaficonsultores.com",
     siteName: "JuPaFi Consultores",
     locale: "es_MX",
@@ -54,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${mono.variable}`}>
       <body className="bg-zinc-950 text-zinc-50 font-sans">
+        <PremiumPolish />
         {children}
         {/* Cierra CRM — Lead capture widget */}
         <Script

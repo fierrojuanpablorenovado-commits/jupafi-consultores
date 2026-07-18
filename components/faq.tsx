@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "¿Por qué tan rápido? ¿Sacrifican calidad?",
-    a: "No sacrificamos — usamos stack moderno (Next.js, Tailwind, Vercel, motion, etc.) que está diseñado para velocidad. Plus, no construimos features que no vas a usar. Empezamos con el MVP mínimo viable real y crecemos basado en uso. Nuestras 6 apps en producción tienen Lighthouse 95+.",
+    a: "No sacrificamos — usamos stack moderno (Next.js, Tailwind, Vercel, motion, etc.) que está diseñado para velocidad. Plus, no construimos features que no vas a usar. Empezamos con el MVP mínimo viable real y crecemos basado en uso. Todos nuestros productos apuntan a Lighthouse 90+.",
   },
   {
     q: "¿Trabajan con startups o solo con empresas establecidas?",

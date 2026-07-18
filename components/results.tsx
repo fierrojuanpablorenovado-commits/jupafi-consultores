@@ -6,10 +6,10 @@ import { Marquee } from "@/components/ui/marquee";
 import { projects } from "@/data/projects";
 
 const bigStats = [
-  { value: 14, suffix: "+", label: "Productos lanzados", sub: "Desde 2018" },
-  { value: 6, suffix: "", label: "En producción ahora", sub: "Tráfico real" },
-  { value: 100, suffix: "k+", label: "Líneas de código", sub: "Stack moderno" },
-  { value: 24, suffix: "h", label: "Deploy garantizado", sub: "MVP a producción" },
+  { value: 13, suffix: "", label: "Productos digitales", sub: "Construidos desde 2024" },
+  { value: 11, suffix: "", label: "Con demo en vivo", sub: "URL pública verificable" },
+  { value: 5, suffix: "", label: "Categorías", sub: "SaaS · IA · Fintech · más" },
+  { value: 6, suffix: " sem", label: "Tiempo medio", sub: "De la idea al deploy" },
 ];
 
 export function Results() {

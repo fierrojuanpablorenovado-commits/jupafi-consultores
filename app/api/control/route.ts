@@ -5,10 +5,12 @@ import { verifyToken, COOKIE_NAME } from '@/lib/auth';
 
 const GTF    = 'https://gestiona-tu-flotilla.vercel.app';
 const CIERRA = 'https://cierra-crm.vercel.app';
+const AVISA  = 'https://avisamx.com';
 
 const PROJECTS_CONFIG: Record<string, { statsUrl: string; secret: string }> = {
   gtf:    { statsUrl: `${GTF}/api/admin/super-stats`,    secret: 'gtf-admin-secret'    },
   cierra: { statsUrl: `${CIERRA}/api/admin/super-stats`, secret: 'cierra-admin-secret' },
+  avisa:  { statsUrl: `${AVISA}/api/admin/super-stats`,  secret: process.env.AVISA_ADMIN_SECRET || 'avisa-admin-secret-jp2026' },
 };
 
 // ─── Auth via cookie (el middleware ya la protege; esta es doble verificación) ─
@@ -87,25 +89,55 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(await res.json());
   }
 
-  // --- create tenant ---
+  // --- create tenant (enrutar por proyecto) ---
   if (action === 'create-tenant') {
-    const res = await fetch(`${GTF}/api/admin/create-tenant`, {
+    const project = payload.project ?? 'gtf';
+    const cfg = PROJECTS_CONFIG[project as string] ?? PROJECTS_CONFIG.gtf;
+    const baseUrl = cfg.statsUrl.replace('/api/admin/super-stats', '');
+    const res = await fetch(`${baseUrl}/api/admin/create-tenant`, {
       method: 'POST',
-      headers: { 'x-admin-secret': 'gtf-admin-secret', 'Content-Type': 'application/json' },
+      headers: { 'x-admin-secret': cfg.secret, 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     }).catch(() => null);
-    if (!res?.ok) return NextResponse.json({ error: 'Failed' }, { status: 500 });
+    if (!res?.ok) {
+      const errBody = await res?.json().catch(() => ({})) as { error?: string };
+      return NextResponse.json({ error: errBody?.error ?? 'Failed to create tenant' }, { status: 500 });
+    }
     return NextResponse.json(await res.json());
   }
 
-  // --- delete tenant ---
+  // --- reset password (enrutar por proyecto, newPassword opcional) ---
+  if (action === 'reset-password') {
+    const project = payload.project ?? 'gtf';
+    const cfg = PROJECTS_CONFIG[project as string] ?? PROJECTS_CONFIG.gtf;
+    const baseUrl = cfg.statsUrl.replace('/api/admin/super-stats', '');
+    const { project: _p, action: _a, ...cleanPayload } = payload as Record<string, unknown>;
+    const res = await fetch(`${baseUrl}/api/admin/reset-password`, {
+      method: 'POST',
+      headers: { 'x-admin-secret': cfg.secret, 'Content-Type': 'application/json' },
+      body: JSON.stringify(cleanPayload),
+    }).catch(() => null);
+    if (!res?.ok) {
+      const errBody = await res?.json().catch(() => ({})) as { error?: string };
+      return NextResponse.json({ error: errBody?.error ?? 'Failed to reset password' }, { status: 500 });
+    }
+    return NextResponse.json(await res.json());
+  }
+
+  // --- delete tenant (enrutar por proyecto) ---
   if (action === 'delete-tenant') {
-    const res = await fetch(`${GTF}/api/admin/delete-tenant`, {
+    const project = payload.project ?? 'gtf';
+    const cfg = PROJECTS_CONFIG[project as string] ?? PROJECTS_CONFIG.gtf;
+    const baseUrl = cfg.statsUrl.replace('/api/admin/super-stats', '');
+    const res = await fetch(`${baseUrl}/api/admin/delete-tenant`, {
       method: 'DELETE',
-      headers: { 'x-admin-secret': 'gtf-admin-secret', 'Content-Type': 'application/json' },
+      headers: { 'x-admin-secret': cfg.secret, 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     }).catch(() => null);
-    if (!res?.ok) return NextResponse.json({ error: 'Failed' }, { status: 500 });
+    if (!res?.ok) {
+      const errBody = await res?.json().catch(() => ({})) as { error?: string };
+      return NextResponse.json({ error: errBody?.error ?? 'Failed' }, { status: 500 });
+    }
     return NextResponse.json(await res.json());
   }
 

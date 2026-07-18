@@ -21,6 +21,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://image.thum.io https:",
+      "media-src 'self' blob:",
       "connect-src 'self' https://nextlead-saas.vercel.app",
       "frame-src 'none'",
       "object-src 'none'",
@@ -43,6 +44,30 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      // ── Panel privado: máxima protección ──────────────────────────────────
+      {
+        source: "/control/:path*",
+        headers: [
+          // Ningún buscador lo indexa ni lo cachea
+          { key: "X-Robots-Tag",    value: "noindex, nofollow, noarchive, nosnippet" },
+          { key: "Cache-Control",   value: "no-store, no-cache, must-revalidate, private" },
+          { key: "Pragma",          value: "no-cache" },
+          { key: "Expires",         value: "0" },
+          // No puede abrirse dentro de ningún iframe
+          { key: "X-Frame-Options", value: "DENY" },
+          // Nunca enviar referer al salir del panel
+          { key: "Referrer-Policy", value: "no-referrer" },
+          // No se puede embeber via objeto/embed
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+        ],
+      },
+      {
+        source: "/api/control/:path*",
+        headers: [
+          { key: "X-Robots-Tag",  value: "noindex, nofollow" },
+          { key: "Cache-Control", value: "no-store, private" },
+        ],
       },
     ];
   },

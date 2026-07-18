@@ -1,6 +1,6 @@
 // lib/auth.ts — Funciones de auth compartidas (Edge + Node compatible)
 
-export const COOKIE_NAME = 'jpf_session';
+export const COOKIE_NAME = 'jpf_session_v2'; // v2: invalidates old sessions
 export const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 días
 const MESSAGE = 'jpfi-session-v1';
 

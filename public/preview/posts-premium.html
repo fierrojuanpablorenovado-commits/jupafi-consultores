@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  body { background:#18181b; font-family:'Inter',sans-serif; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+
+  /* Each post is exactly 1080x1350 (Instagram portrait 4:5) */
+  .post {
+    width:1080px; height:1350px; position:relative; overflow:hidden;
+    background:#09090b; color:#fafafa; margin:0 auto 40px;
+  }
+  /* subtle grid bg */
+  .grid-bg {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(39,39,42,.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(39,39,42,.4) 1px, transparent 1px);
+    background-size:60px 60px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+  }
+  .glow { position:absolute; border-radius:50%; filter:blur(120px); pointer-events:none; }
+
+  .pad { position:relative; padding:90px 80px; height:100%; display:flex; flex-direction:column; }
+
+  /* logo */
+  .logo { display:flex; align-items:center; gap:16px; }
+  .logo .mark { width:64px; height:64px; border-radius:16px; background:#c8ff00;
+    display:flex; align-items:center; justify-content:center; color:#09090b; font-weight:900; font-size:40px; }
+  .logo .name { font-size:32px; font-weight:700; letter-spacing:-.5px; }
+  .logo .name span { color:#71717a; font-weight:400; }
+
+  .badge { display:inline-flex; align-items:center; gap:10px; padding:10px 18px;
+    border:1px solid #27272a; border-radius:999px; background:rgba(24,24,27,.6);
+    font-size:18px; color:#a1a1aa; width:fit-content; }
+  .badge .dot { width:10px; height:10px; border-radius:50%; background:#c8ff00; }
+
+  h1.title { font-size:96px; font-weight:800; letter-spacing:-3px; line-height:.98; }
+  h1.title .accent { color:#c8ff00; }
+  h1.title .it { font-style:italic; font-weight:300; color:#71717a; }
+
+  .sub { font-size:30px; color:#a1a1aa; line-height:1.5; }
+  .sub b { color:#fafafa; font-weight:600; }
+
+  .foot { margin-top:auto; display:flex; align-items:center; justify-content:space-between; }
+  .foot .url { font-size:26px; font-weight:600; }
+  .foot .url .accent { color:#c8ff00; }
+  .foot .tag { font-size:20px; color:#71717a; }
+
+  /* browser frame mock */
+  .browser { border-radius:18px; border:1px solid #3f3f46; background:#18181b; overflow:hidden;
+    box-shadow:0 40px 100px -20px rgba(0,0,0,.8); }
+  .browser .bar { height:48px; background:rgba(39,39,42,.9); display:flex; align-items:center; padding:0 18px; gap:10px; border-bottom:1px solid #3f3f46; }
+  .browser .bar i { width:13px; height:13px; border-radius:50%; display:block; }
+  .browser .bar .u { margin:0 auto; font-size:16px; color:#71717a; }
+  .browser img { width:100%; display:block; }
+
+  /* stat cards */
+  .stats { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+  .stat { border:1px solid #27272a; border-radius:20px; padding:36px; background:rgba(24,24,27,.4); }
+  .stat .n { font-size:72px; font-weight:800; letter-spacing:-2px; line-height:1; }
+  .stat .n .accent { color:#c8ff00; }
+  .stat .l { font-size:22px; color:#a1a1aa; margin-top:14px; }
+
+  /* product chips */
+  .chips { display:flex; flex-wrap:wrap; gap:14px; }
+  .chip { display:flex; align-items:center; gap:10px; padding:14px 22px; border:1px solid #27272a;
+    border-radius:14px; background:rgba(24,24,27,.6); font-size:24px; }
+  .chip .d { width:8px; height:8px; border-radius:50%; background:#c8ff00; }
+  .chip .cat { color:#71717a; font-size:18px; }
+
+  /* compare table */
+  .cmp { border:1px solid #27272a; border-radius:24px; overflow:hidden; }
+  .cmp .row { display:grid; grid-template-columns:1.3fr 1fr 1fr; border-bottom:1px solid #27272a; }
+  .cmp .row:last-child { border-bottom:none; }
+  .cmp .cell { padding:28px 26px; font-size:24px; }
+  .cmp .head .cell { font-weight:700; font-size:22px; }
+  .cmp .jpcol { background:rgba(200,255,0,.06); border-left:1px solid rgba(200,255,0,.2); border-right:1px solid rgba(200,255,0,.2); }
+  .cmp .jpcol.h { color:#c8ff00; }
+  .cmp .muted { color:#71717a; }
+
+  /* pricing */
+  .price { border:1px solid #27272a; border-radius:24px; padding:44px; background:rgba(24,24,27,.4); }
+  .price.feat { border-color:rgba(200,255,0,.4); background:linear-gradient(180deg,#18181b,#0d0d0f); }
+  .price .name { font-size:30px; font-weight:700; }
+  .price .amt { font-size:56px; font-weight:800; letter-spacing:-1px; margin-top:10px; }
+  .price .amt .u { font-size:24px; color:#71717a; font-weight:400; }
+  .price .desc { font-size:20px; color:#a1a1aa; margin-top:14px; line-height:1.4; }
+</style>
+</head>
+<body>
+
+<!-- ============ POST 1 · PRESENTACIÓN ============ -->
+<section class="post" id="p1">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:600px;height:600px;background:rgba(200,255,0,.12);top:-150px;left:300px;"></div>
+  <div class="pad">
+    <div class="logo"><div class="mark">J</div><div class="name">JuPaFi <span>Consultores</span></div></div>
+    <div class="badge" style="margin-top:60px;"><span class="dot"></span><span class="mono" style="font-size:16px;letter-spacing:2px;text-transform:uppercase;">Hecho en Guadalajara · 13 productos</span></div>
+    <h1 class="title" style="margin-top:50px;">Productos<br>digitales <span class="it">que</span><br><span class="accent">escalan.</span></h1>
+    <p class="sub" style="margin-top:50px;max-width:840px;">Construimos SaaS, apps con IA y automatizaciones en <b>semanas</b>, no en trimestres. Ejecución de fundador.</p>
+    <div class="foot">
+      <div class="url">jupafi<span class="accent">consultores</span>.com</div>
+      <div class="tag mono">→ Consulta gratis</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POST 2 · TRACK RECORD con screenshots reales ============ -->
+<section class="post" id="p2">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:500px;height:500px;background:rgba(99,102,241,.12);bottom:-100px;right:-50px;"></div>
+  <div class="pad">
+    <div class="logo"><div class="mark">J</div><div class="name">JuPaFi <span>Consultores</span></div></div>
+    <div style="margin-top:50px;display:flex;align-items:baseline;gap:24px;">
+      <div style="font-size:200px;font-weight:900;letter-spacing:-8px;line-height:.8;color:#c8ff00;">13</div>
+      <div style="font-size:56px;font-weight:700;letter-spacing:-1px;line-height:1.05;">productos<br>en producción</div>
+    </div>
+    <div style="margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="browser"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="u mono">cierra-crm</span></div><img src="/screenshots/cierra-crm.webp" alt=""></div>
+      <div class="browser"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="u mono">vista3d</span></div><img src="/screenshots/vista3d.webp" alt=""></div>
+    </div>
+    <p class="sub" style="margin-top:40px;">SaaS · Apps con IA · Fintech · Automatización · Inmobiliaria</p>
+    <div class="foot">
+      <div class="url">Míralos funcionando · jupafi<span class="accent">consultores</span>.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POST 3 · CASO Cierra CRM ============ -->
+<section class="post" id="p3">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:600px;height:600px;background:rgba(200,255,0,.1);top:200px;left:-100px;"></div>
+  <div class="pad">
+    <div class="logo"><div class="mark">J</div><div class="name">JuPaFi <span>Consultores</span></div></div>
+    <div class="badge" style="margin-top:50px;"><span class="dot"></span><span class="mono" style="font-size:16px;letter-spacing:2px;text-transform:uppercase;">Caso real · En producción</span></div>
+    <h1 class="title" style="font-size:74px;margin-top:40px;">De Excel a un<br>CRM que <span class="accent">cierra solo.</span></h1>
+    <div class="browser" style="margin-top:50px;"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="u mono">nextlead-saas.vercel.app</span></div><img src="/screenshots/cierra-crm.webp" alt=""></div>
+    <p class="sub" style="margin-top:40px;">Pipeline visual · Recordatorios automáticos · Onboarding en <b>menos de 3 minutos</b>.</p>
+    <div class="foot"><div class="url">jupafi<span class="accent">consultores</span>.com</div></div>
+  </div>
+</section>
+
+<!-- ============ POST 4 · COMPARATIVA ============ -->
+<section class="post" id="p4">
+  <div class="grid-bg"></div>
+  <div class="pad">
+    <div class="logo"><div class="mark">J</div><div class="name">JuPaFi <span>Consultores</span></div></div>
+    <h1 class="title" style="font-size:70px;margin-top:50px;">Sin malas vibras.<br><span class="it" style="font-size:54px;">solo la verdad.</span></h1>
+    <div class="cmp" style="margin-top:50px;">
+      <div class="row head">
+        <div class="cell muted mono" style="text-transform:uppercase;font-size:18px;">Criterio</div>
+        <div class="cell jpcol h" style="text-align:center;">★ JuPaFi</div>
+        <div class="cell muted" style="text-align:center;">Agencia</div>
+      </div>
+      <div class="row"><div class="cell">Tiempo</div><div class="cell jpcol" style="text-align:center;color:#c8ff00;font-weight:700;">6 semanas</div><div class="cell muted" style="text-align:center;">6-12 meses</div></div>
+      <div class="row"><div class="cell">Costo MVP</div><div class="cell jpcol" style="text-align:center;font-weight:600;">$80-150k</div><div class="cell muted" style="text-align:center;">$500k-2M</div></div>
+      <div class="row"><div class="cell">Dueño del código</div><div class="cell jpcol" style="text-align:center;color:#c8ff00;font-weight:700;">100% tuyo</div><div class="cell muted" style="text-align:center;">Compartido</div></div>
+      <div class="row"><div class="cell">Te atiende</div><div class="cell jpcol" style="text-align:center;font-weight:600;">Quien construye</div><div class="cell muted" style="text-align:center;">Juniors</div></div>
+    </div>
+    <div class="foot"><div class="url">jupafi<span class="accent">consultores</span>.com</div><div class="tag mono">→ Tú decides</div></div>
+  </div>
+</section>
+
+<!-- ============ POST 5 · PAQUETES ============ -->
+<section class="post" id="p5">
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:500px;height:500px;background:rgba(200,255,0,.1);bottom:0;left:50%;transform:translateX(-50%);"></div>
+  <div class="pad">
+    <div class="logo"><div class="mark">J</div><div class="name">JuPaFi <span>Consultores</span></div></div>
+    <h1 class="title" style="font-size:80px;margin-top:50px;">Precios claros.<br><span class="accent">Sin sorpresas.</span></h1>
+    <div style="margin-top:60px;display:flex;flex-direction:column;gap:24px;">
+      <div class="price"><div class="name">Landing premium</div><div class="amt">$15<span class="u">k MXN · 2 semanas</span></div></div>
+      <div class="price feat"><div style="font-size:18px;color:#c8ff00;font-weight:700;margin-bottom:10px;" class="mono">★ MÁS POPULAR</div><div class="name">MVP / App con IA</div><div class="amt"><span class="accent">$60</span><span class="u">k MXN · 4-6 semanas</span></div></div>
+      <div class="price"><div class="name">SaaS completo</div><div class="amt">$150<span class="u">k MXN · 8-12 semanas</span></div></div>
+    </div>
+    <div class="foot"><div class="url">Cotización exacta en tu consulta · jupafi<span class="accent">consultores</span>.com</div></div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -11,7 +11,6 @@ const categories: Array<ProjectCategory | "Todos"> = [
   "Todos",
   "SaaS",
   "IA + Chatbots",
-  "Automatización",
   "Fintech",
   "Inmobiliaria",
   "Educación",
@@ -46,7 +45,7 @@ export function Portfolio() {
           className="max-w-3xl mb-12"
         >
           <div className="text-sm font-mono text-accent mb-4">
-            01 · PORTFOLIO COMPLETO
+            01 · PORTAFOLIO COMPLETO
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
             Productos.

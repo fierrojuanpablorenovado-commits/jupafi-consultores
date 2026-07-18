@@ -1,15 +1,11 @@
 export type ProjectCategory =
   | "SaaS"
   | "IA + Chatbots"
-  | "Automatización"
   | "Fintech"
   | "Inmobiliaria"
   | "Educación";
 
-export type ProjectStatus =
-  | "En producción"
-  | "Beta"
-  | "En desarrollo";
+export type ProjectStatus = "En producción" | "Beta" | "En desarrollo";
 
 export interface Project {
   slug: string;
@@ -20,23 +16,23 @@ export interface Project {
   status: ProjectStatus;
   progress?: number; // 0-100
   stack: string[];
-  url?: string;
-  screenshotUrl?: string;
+  url: string; // URL pública obligatoria — ya no admitimos proyectos sin demo
+  screenshotUrl: string; // screenshot real obligatorio — local
   highlight?: boolean;
   metrics?: { label: string; value: string }[];
   lastUpdate?: string;
 }
 
 /**
- * Filtro editorial aplicado:
- * - Solo productos JuPaFi propios o entregables a clientes
- * - Excluido: réplicas / reverse engineering (Gonzara fue removido)
- * - Excluido: productos rotos sin fix inmediato (Mundial V3 oculto hasta arreglo)
- * - Mantenidos sin URL: productos vendibles aunque sean operativos internos
+ * Filtro editorial estricto:
+ * - Solo productos JuPaFi propios — cero réplicas, cero reverse engineering
+ * - Solo productos CON URL pública verificable
+ * - Solo productos CON screenshot real del sitio en producción
+ * - Excluidos: motores internos, proyectos sin demo, productos rotos
+ *
+ * Originales y auténticos. Nada más.
  */
-
 export const projects: Project[] = [
-  // ============ PRODUCTOS EN PRODUCCIÓN con URL pública ============
   {
     slug: "cierra-crm",
     name: "Cierra CRM",
@@ -48,12 +44,12 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js 14", "Neon Postgres", "Stripe", "Vercel"],
     url: "https://nextlead-saas.vercel.app",
-    screenshotUrl: "/screenshots/cierra-crm.png",
+    screenshotUrl: "/screenshots/cierra-crm.webp",
     highlight: true,
     metrics: [
-      { label: "Equipos activos", value: "1,200+" },
-      { label: "Tracked", value: "$420M MXN" },
-      { label: "Setup", value: "3 min" },
+      { label: "Onboarding", value: "< 3 min" },
+      { label: "Pipeline", value: "Visual" },
+      { label: "Pagos", value: "Stripe-ready" },
     ],
     lastUpdate: "Hace 8 días",
   },
@@ -68,7 +64,7 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js 16", "PlayCanvas 2.18", "WebGL", "Vercel"],
     url: "https://vista3d-beige.vercel.app",
-    screenshotUrl: "/screenshots/vista3d.png",
+    screenshotUrl: "/screenshots/vista3d.webp",
     highlight: true,
     metrics: [
       { label: "Render", value: "60 fps" },
@@ -87,7 +83,7 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js 14", "Postgres", "Multi-tenant"],
     url: "https://gestionatuflotilla.com",
-    screenshotUrl: "/screenshots/gestiona-flotilla.png",
+    screenshotUrl: "/screenshots/gestiona-flotilla.webp",
     highlight: true,
     metrics: [
       { label: "Módulos", value: "7 activos" },
@@ -106,7 +102,7 @@ export const projects: Project[] = [
     progress: 95,
     stack: ["Next.js", "WhatsApp API", "Portales inmobiliarios"],
     url: "https://inmobiliarialp.com",
-    screenshotUrl: "/screenshots/inmobiliaria-lp.png",
+    screenshotUrl: "/screenshots/inmobiliaria-lp.webp",
     metrics: [{ label: "Ciclo cubierto", value: "Captación→Cierre" }],
     lastUpdate: "Hace 14 horas",
   },
@@ -115,15 +111,15 @@ export const projects: Project[] = [
     name: "Entrevista Virtual",
     tagline: "Entrevistas con IA para reclutar choferes",
     description:
-      "Sistema conversacional con voz natural en español. Filtra candidatos 24/7 y solo agenda finalistas con RH humano. Ahorra 70% del costo de reclutamiento.",
+      "Sistema conversacional con voz natural en español. Pre-filtra y califica candidatos 24/7 para que el equipo de RH solo invierta tiempo en los finalistas.",
     category: "IA + Chatbots",
     status: "En producción",
     progress: 100,
     stack: ["Next.js", "ElevenLabs", "GPT-4", "Vercel"],
     url: "https://entrevista-virtual.vercel.app",
-    screenshotUrl: "/screenshots/entrevista-virtual.png",
+    screenshotUrl: "/screenshots/entrevista-virtual.webp",
     metrics: [
-      { label: "Ahorro vs RH", value: "70%" },
+      { label: "Disponibilidad", value: "24/7" },
       { label: "Voz", value: "ES neutro nativo" },
     ],
     lastUpdate: "Hace 4 días",
@@ -139,7 +135,7 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js", "Cumplimiento PLD/UIF", "Firma NOM-151", "Simulador"],
     url: "https://prestamo-listo-app.vercel.app",
-    screenshotUrl: "/screenshots/prestamo-listo.png",
+    screenshotUrl: "/screenshots/prestamo-listo.webp",
     highlight: true,
     metrics: [
       { label: "Ticket", value: "$8-30k MXN" },
@@ -159,27 +155,9 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js 14", "Tailwind", "Recharts"],
     url: "https://vantor-saas.vercel.app",
-    screenshotUrl: "/screenshots/vantor-saas.png",
+    screenshotUrl: "/screenshots/vantor-saas.webp",
     metrics: [{ label: "Módulos", value: "7 completos" }],
     lastUpdate: "Hace 7 días",
-  },
-  {
-    slug: "jupafi-consultores",
-    name: "JuPaFi Consultores",
-    tagline: "Este sitio mismo",
-    description:
-      "Sitio agencia con bento mockups, smooth scroll, custom cursor, tilt 3D, page loader, editorial statement y journey timeline.",
-    category: "SaaS",
-    status: "En producción",
-    progress: 100,
-    stack: ["Next.js 14", "Tailwind", "motion", "Lenis"],
-    url: "https://jupaficonsultores.com",
-    screenshotUrl: "/screenshots/jupafi-consultores.png",
-    metrics: [
-      { label: "First Load", value: "163 KB" },
-      { label: "Lighthouse", value: "95+" },
-    ],
-    lastUpdate: "Hace 2 días",
   },
   {
     slug: "cierra-leads",
@@ -192,7 +170,7 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js", "Stripe", "Webhooks"],
     url: "https://cierra-leads.vercel.app",
-    screenshotUrl: "/screenshots/cierra-leads.png",
+    screenshotUrl: "/screenshots/cierra-leads.webp",
     lastUpdate: "Hace 15 horas",
   },
   {
@@ -206,7 +184,7 @@ export const projects: Project[] = [
     progress: 100,
     stack: ["Next.js", "Vercel", "LMS modular"],
     url: "https://academia-quantum-neurociencia.vercel.app",
-    screenshotUrl: "/screenshots/academia-quantum.png",
+    screenshotUrl: "/screenshots/academia-quantum.webp",
     lastUpdate: "Hace 1 día",
   },
   {
@@ -220,7 +198,7 @@ export const projects: Project[] = [
     progress: 85,
     stack: ["Next.js", "Audio sync", "Layout cuadro misional"],
     url: "https://mi-mapa-numerico.vercel.app",
-    screenshotUrl: "/screenshots/mi-mapa-numerico.png",
+    screenshotUrl: "/screenshots/mi-mapa-numerico.webp",
     metrics: [{ label: "Números", value: "1-8 cubiertos" }],
     lastUpdate: "Hace 23 horas",
   },
@@ -235,7 +213,7 @@ export const projects: Project[] = [
     progress: 70,
     stack: ["Next.js", "Postgres", "Multi-tenant"],
     url: "https://cloud-terralta-portal.vercel.app",
-    screenshotUrl: "/screenshots/terralta-portal.png",
+    screenshotUrl: "/screenshots/terralta-portal.webp",
     lastUpdate: "Hace 21 minutos",
   },
   {
@@ -249,74 +227,26 @@ export const projects: Project[] = [
     progress: 65,
     stack: ["Next.js", "Vercel"],
     url: "https://inmoburo.vercel.app",
-    screenshotUrl: "/screenshots/solventa.png",
+    screenshotUrl: "/screenshots/solventa.webp",
     lastUpdate: "Hace 8 días",
   },
-
-  // ============ Productos sin URL pública aún (sin imagen, no se muestran ============
   {
-    slug: "trama",
-    name: "Trama",
-    tagline: "Mensajería conversacional multi-tenant LATAM",
+    slug: "jupafi-consultores",
+    name: "JuPaFi Consultores",
+    tagline: "Este sitio mismo",
     description:
-      "Plataforma SaaS para automatizar WhatsApp Business con IA. Inbox unificado, flujos visuales, multi-cuenta. 6 fases entregadas.",
+      "Sitio agencia con bento mockups, smooth scroll, custom cursor, tilt 3D, page loader, editorial statement y journey timeline.",
     category: "SaaS",
-    status: "En desarrollo",
-    progress: 75,
-    stack: ["Express", "Baileys", "Postgres", "Next.js 14"],
-    metrics: [
-      { label: "Canales", value: "WA + IG" },
-      { label: "Fases", value: "6/6" },
-    ],
-    lastUpdate: "En desarrollo activo",
-  },
-  {
-    slug: "chatbot-flotilla",
-    name: "Chatbot Reclutamiento Flotilla",
-    tagline: "Captación de choferes Uber/Didi 24/7",
-    description:
-      "WhatsApp bot que filtra, califica y agenda entrevistas con choferes. Listo para Uber, Didi, InDriver — 3 plataformas integradas.",
-    category: "IA + Chatbots",
     status: "En producción",
     progress: 100,
-    stack: ["ManyChat", "Make", "Google Sheets", "Google Meet"],
+    stack: ["Next.js 14", "Tailwind", "motion", "Lenis"],
+    url: "https://jupaficonsultores.com",
+    screenshotUrl: "/screenshots/jupafi-consultores.webp",
     metrics: [
-      { label: "Disponibilidad", value: "24/7" },
-      { label: "Plataformas", value: "3 integradas" },
+      { label: "First Load", value: "163 KB" },
+      { label: "Lighthouse", value: "95+" },
     ],
-    lastUpdate: "Operando para clientes",
-  },
-  {
-    slug: "tipster-playdoit",
-    name: "Tipster PlayDoit",
-    tagline: "Pronósticos deportivos cuantitativos con IA",
-    description:
-      "Sistema semanal con checklist pre-bet, stakes por confianza, métricas y rutina dominical. Bankroll real, 100% cloud.",
-    category: "Automatización",
-    status: "En producción",
-    progress: 100,
-    stack: ["GitHub Actions", "OpenAI", "Altenar API", "ManyChat"],
-    metrics: [
-      { label: "Frecuencia", value: "Lun/Mié/Vie" },
-      { label: "Infra", value: "100% cloud" },
-    ],
-    lastUpdate: "Operando semanal",
-  },
-  {
-    slug: "constructor-cursos",
-    name: "Constructor de Plataformas LMS",
-    tagline: "Videos + docs → plataforma SaaS deploy-ready",
-    description:
-      "Motor que transforma material crudo (videos + PDFs) en plataforma LMS con login, roles, sidebar, búsqueda y Stripe. Usado para Academia Quantum.",
-    category: "Educación",
-    status: "En producción",
-    progress: 100,
-    stack: ["Whisper", "Claude", "HTML/JS", "Vercel", "Stripe"],
-    metrics: [
-      { label: "Input", value: "Videos + docs" },
-      { label: "Output", value: "LMS deploy-ready" },
-    ],
-    lastUpdate: "Operando",
+    lastUpdate: "Hace 2 días",
   },
 ];
 
@@ -324,5 +254,4 @@ export const stats = {
   totalProjects: projects.length,
   inProduction: projects.filter((p) => p.status === "En producción").length,
   saasProducts: projects.filter((p) => p.category === "SaaS").length,
-  withLiveScreenshot: projects.filter((p) => p.screenshotUrl).length,
 };

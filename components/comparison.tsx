@@ -49,9 +49,9 @@ const rows = [
   },
   {
     feature: "Track record verificable",
-    jupafi: "14+ productos vivos",
+    jupafi: "13 productos en producción",
     agency: "Casos selectos",
-    freelancer: "Portfolio",
+    freelancer: "Portafolio",
   },
   {
     feature: "Equipo dedicado o boutique",

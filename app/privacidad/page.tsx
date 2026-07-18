@@ -22,7 +22,7 @@ export default function PrivacidadPage() {
           Política de Privacidad
         </h1>
         <p className="text-zinc-500 mb-16">
-          Última actualización: Mayo 2025
+          Última actualización: Mayo 2026
         </p>
 
         <section className="space-y-10 text-zinc-300 leading-relaxed">
@@ -34,10 +34,10 @@ export default function PrivacidadPage() {
               JuPaFi Consultores es responsable del tratamiento de los datos
               personales que nos proporciones. Contacto:{" "}
               <a
-                href="mailto:hola@jupaficonsultores.com"
+                href="mailto:info@jupaficonsultores.com"
                 className="text-accent hover:underline"
               >
-                hola@jupaficonsultores.com
+                info@jupaficonsultores.com
               </a>
             </p>
           </div>
@@ -76,10 +76,10 @@ export default function PrivacidadPage() {
               Tienes derecho a acceder, rectificar, eliminar, portabilidad y
               oposición al tratamiento de tus datos. Escríbenos a{" "}
               <a
-                href="mailto:hola@jupaficonsultores.com"
+                href="mailto:info@jupaficonsultores.com"
                 className="text-accent hover:underline"
               >
-                hola@jupaficonsultores.com
+                info@jupaficonsultores.com
               </a>{" "}
               y respondemos en máximo 72 horas.
             </p>
